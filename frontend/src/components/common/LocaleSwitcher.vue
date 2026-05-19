@@ -47,16 +47,18 @@ import { useI18n } from 'vue-i18n'
 import { useRoute } from 'vue-router'
 import Icon from '@/components/icons/Icon.vue'
 import { setLocale, getAvailableLocalesForRoute } from '@/i18n'
+import { useAuthStore } from '@/stores/auth'
 
 const { locale } = useI18n()
 const route = useRoute()
+const authStore = useAuthStore()
 
 const isOpen = ref(false)
 const dropdownRef = ref<HTMLElement | null>(null)
 const switching = ref(false)
 
 const currentLocaleCode = computed(() => locale.value)
-const availableLocales = computed(() => getAvailableLocalesForRoute(route.path))
+const availableLocales = computed(() => getAvailableLocalesForRoute(route.path, authStore.isAdmin))
 const currentLocale = computed(() => availableLocales.value.find((l) => l.code === locale.value))
 
 function toggleDropdown() {

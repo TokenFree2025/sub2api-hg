@@ -106,4 +106,10 @@ describe('i18n configuration', () => {
 
     expect(getAvailableLocalesForRoute('/admin/settings').map((locale) => locale.code)).toEqual(['ko', 'en', 'zh'])
   })
+
+  it('keeps Chinese available for admin users on account routes', async () => {
+    const { getAvailableLocalesForRoute } = await loadI18nModule()
+
+    expect(getAvailableLocalesForRoute('/profile', true).map((locale) => locale.code)).toEqual(['ko', 'en', 'zh'])
+  })
 })

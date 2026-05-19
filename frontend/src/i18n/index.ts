@@ -93,12 +93,12 @@ export const availableLocales = [
   { code: 'zh', name: '中文', flag: '🇨🇳' }
 ] as const
 
-function getAllowedLocaleCodesForPath(path: string): LocaleCode[] {
-  return path.startsWith('/admin') ? ADMIN_LOCALES : USER_FACING_LOCALES
+function getAllowedLocaleCodesForPath(path: string, isAdminUser = false): LocaleCode[] {
+  return path.startsWith('/admin') || isAdminUser ? ADMIN_LOCALES : USER_FACING_LOCALES
 }
 
-export function getAvailableLocalesForRoute(path: string) {
-  const allowedCodes = getAllowedLocaleCodesForPath(path)
+export function getAvailableLocalesForRoute(path: string, isAdminUser = false) {
+  const allowedCodes = getAllowedLocaleCodesForPath(path, isAdminUser)
   return availableLocales.filter((locale) => allowedCodes.includes(locale.code))
 }
 
