@@ -3,7 +3,7 @@
     <!-- Mini Progress Display -->
     <button
       @click="toggleTooltip"
-      class="flex cursor-pointer items-center gap-2 rounded-xl bg-purple-50 px-3 py-1.5 transition-colors hover:bg-purple-100 dark:bg-purple-900/20 dark:hover:bg-purple-900/30"
+      class="flex cursor-pointer items-center gap-2 rounded-md border border-purple-200 bg-purple-50 px-3 py-1.5 transition-colors hover:bg-purple-100 dark:border-purple-900/60 dark:bg-purple-950/30 dark:hover:bg-purple-950/40"
       :title="t('subscriptionProgress.viewDetails')"
     >
       <Icon name="creditCard" size="sm" class="text-purple-600 dark:text-purple-400" />
@@ -27,9 +27,9 @@
     <transition name="dropdown">
       <div
         v-if="tooltipOpen"
-        class="absolute right-0 z-50 mt-2 w-[340px] overflow-hidden rounded-xl border border-gray-200 bg-white shadow-xl dark:border-dark-700 dark:bg-dark-800"
+        class="absolute right-0 z-50 mt-2 w-[340px] overflow-hidden rounded-md border border-gray-200 bg-white shadow-md dark:border-dark-800 dark:bg-dark-900"
       >
-        <div class="border-b border-gray-100 p-3 dark:border-dark-700">
+        <div class="border-b border-gray-200 p-3 dark:border-dark-800">
           <h3 class="text-sm font-semibold text-gray-900 dark:text-white">
             {{ t('subscriptionProgress.title') }}
           </h3>
@@ -42,7 +42,7 @@
           <div
             v-for="subscription in displaySubscriptions"
             :key="subscription.id"
-            class="border-b border-gray-50 p-3 last:border-b-0 dark:border-dark-700/50"
+            class="border-b border-gray-50 p-3 last:border-b-0 dark:border-dark-800/50"
           >
             <div class="mb-2 flex items-center justify-between">
               <span class="text-sm font-medium text-gray-900 dark:text-white">
@@ -62,7 +62,7 @@
               <!-- Unlimited subscription badge -->
               <div
                 v-if="isUnlimited(subscription)"
-                class="flex items-center gap-2 rounded-lg bg-gradient-to-r from-emerald-50 to-teal-50 px-2.5 py-1.5 dark:from-emerald-900/20 dark:to-teal-900/20"
+                class="flex items-center gap-2 rounded-md border border-emerald-200 bg-emerald-50 px-2.5 py-1.5 dark:border-emerald-900/60 dark:bg-emerald-950/30"
               >
                 <span class="text-lg text-emerald-600 dark:text-emerald-400">∞</span>
                 <span class="text-xs font-medium text-emerald-700 dark:text-emerald-300">
@@ -163,7 +163,7 @@
           </div>
         </div>
 
-        <div class="border-t border-gray-100 p-2 dark:border-dark-700">
+        <div class="border-t border-gray-200 p-2 dark:border-dark-800">
           <router-link
             to="/subscriptions"
             @click="closeTooltip"

@@ -151,6 +151,13 @@ export function useOnboardingTour(options: OnboardingOptions) {
         }
       },
       onPrevClick: () => {
+        if ((driverInstance?.getActiveIndex() ?? -1) === 0) {
+          markAsSeen()
+          driverInstance?.destroy()
+          onboardingStore.setDriverInstance(null)
+          return
+        }
+
         driverInstance?.movePrevious()
       },
       onCloseClick: () => {
@@ -254,8 +261,11 @@ export function useOnboardingTour(options: OnboardingOptions) {
           }
 
           // 3. 状态更新
-          const isLastStep = state.activeIndex === (config.steps?.length ?? 0) - 1
+          const activeIndex = state.activeIndex ?? 0
+          const isFirstStep = activeIndex === 0
+          const isLastStep = activeIndex === (config.steps?.length ?? 0) - 1
           const activeNextBtn = nextButton || footerEl.querySelector(`.${CLASS_NEXT_BTN}`)
+          const activePrevBtn = previousButton || footerEl.querySelector(`.${CLASS_PREV_BTN}`)
 
           if (activeNextBtn) {
              if (isLastStep) {
@@ -263,6 +273,12 @@ export function useOnboardingTour(options: OnboardingOptions) {
              } else {
                activeNextBtn.classList.remove(CLASS_DONE_BTN)
              }
+          }
+
+          if (activePrevBtn instanceof HTMLButtonElement && isFirstStep) {
+            activePrevBtn.disabled = false
+            activePrevBtn.removeAttribute('disabled')
+            activePrevBtn.classList.remove('driver-popover-btn-disabled')
           }
         } catch (e) {
           console.error('Onboarding Tour Render Error:', e)

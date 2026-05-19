@@ -148,6 +148,8 @@ type GeminiTierQuotaConfig struct {
 }
 
 type UpdateConfig struct {
+	// Repo 用于检查和下载在线更新的 GitHub 仓库，格式为 "owner/repo"
+	Repo string `mapstructure:"repo"`
 	// ProxyURL 用于访问 GitHub 的代理地址
 	// 支持 http/https/socks5/socks5h 协议
 	// 例如: "http://127.0.0.1:7890", "socks5://127.0.0.1:1080"
@@ -1400,6 +1402,7 @@ func load(allowMissingJWTSecret bool) (*Config, error) {
 
 func setDefaults() {
 	viper.SetDefault("run_mode", RunModeStandard)
+	viper.SetDefault("update.repo", "TokenFree2025/sub2api-hg")
 
 	// Server
 	viper.SetDefault("server.host", "0.0.0.0")

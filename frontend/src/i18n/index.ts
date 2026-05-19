@@ -6,6 +6,8 @@ type LocaleMessages = Record<string, any>
 
 const LOCALE_KEY = 'sub2api_locale'
 const DEFAULT_LOCALE: LocaleCode = 'ko'
+const USER_FACING_LOCALES: LocaleCode[] = ['ko', 'en']
+const ADMIN_LOCALES: LocaleCode[] = ['ko', 'en', 'zh']
 
 const localeLoaders: Record<LocaleCode, () => Promise<{ default: LocaleMessages }>> = {
   en: () => import('./locales/en'),
@@ -20,16 +22,14 @@ function isLocaleCode(value: string): value is LocaleCode {
 function getDefaultLocale(): LocaleCode {
   const saved = localStorage.getItem(LOCALE_KEY)
   if (saved && isLocaleCode(saved)) {
-    return saved
+    const routeLocales = getAllowedLocaleCodesForPath(window.location.pathname)
+    if (routeLocales.includes(saved)) {
+      return saved
+    }
+
+    localStorage.setItem(LOCALE_KEY, DEFAULT_LOCALE)
   }
 
-  const browserLang = navigator.language.toLowerCase()
-  if (browserLang.startsWith('zh')) {
-    return 'zh'
-  }
-  if (browserLang.startsWith('ko')) {
-    return 'ko'
-  }
 
   return DEFAULT_LOCALE
 }
@@ -88,9 +88,28 @@ export function getLocale(): LocaleCode {
 }
 
 export const availableLocales = [
+  { code: 'ko', name: '한국어', flag: '🇰🇷' },
   { code: 'en', name: 'English', flag: '🇺🇸' },
-  { code: 'zh', name: '中文', flag: '🇨🇳' },
-  { code: 'ko', name: '한국어', flag: '🇰🇷' }
+  { code: 'zh', name: '中文', flag: '🇨🇳' }
 ] as const
+
+function getAllowedLocaleCodesForPath(path: string): LocaleCode[] {
+  return path.startsWith('/admin') ? ADMIN_LOCALES : USER_FACING_LOCALES
+}
+
+export function getAvailableLocalesForRoute(path: string) {
+  const allowedCodes = getAllowedLocaleCodesForPath(path)
+  return availableLocales.filter((locale) => allowedCodes.includes(locale.code))
+}
+
+export async function ensureLocaleAllowedForRoute(path: string): Promise<void> {
+  const allowedCodes = getAllowedLocaleCodesForPath(path)
+  const current = getLocale()
+  if (allowedCodes.includes(current)) {
+    return
+  }
+
+  await setLocale(DEFAULT_LOCALE)
+}
 
 export default i18n

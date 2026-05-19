@@ -2,7 +2,6 @@ import en from './en'
 
 export default {
   "home": {
-    "viewOnGithub": "GitHub에서 보기",
     "viewDocs": "문서 보기",
     "docs": "문서",
     "switchToLight": "라이트 모드로 전환",
@@ -168,8 +167,8 @@ export default {
     "queryFailedRetry": "조회에 실패했습니다. 잠시 후 다시 시도해 주세요."
   },
   "setup": {
-    "title": "Sub2API 설정",
-    "description": "Sub2API 인스턴스를 구성하세요",
+    "title": "tokendeal 설정",
+    "description": "tokendeal 인스턴스를 구성하세요",
     "database": {
       "title": "데이터베이스 설정",
       "description": "PostgreSQL 데이터베이스에 연결하세요",
@@ -1407,7 +1406,7 @@ export default {
         "step1": {
           "title": "R2 버킷 생성",
           "line1": "Cloudflare Dashboard(dash.cloudflare.com)에 로그인하고 사이드바에서 \"R2 Object Storage\"를 선택합니다.",
-          "line2": "\"버킷 생성\"을 클릭하고 이름(예: sub2api-backups)을 입력한 후 지역을 선택하세요.",
+          "line2": "\"버킷 생성\"을 클릭하고 이름(예: tokendeal-backups)을 입력한 후 지역을 선택하세요.",
           "line3": "완료하려면 만들기를 클릭하세요."
         },
         "step2": {
@@ -3132,7 +3131,7 @@ export default {
       "modelCount": "{count} 모델",
       "poolMode": "풀 모드",
       "poolModeHint": "업스트림이 계정 풀인 경우 활성화합니다. 오류는 로컬 계정 상태를 표시하지 않습니다.",
-      "poolModeInfo": "활성화되면 업스트림 429/403/401 오류는 계정을 속도 제한 또는 오류 발생으로 표시하지 않고 자동으로 재시도됩니다. 다른 sub2api 인스턴스를 가리키는 업스트림에 적합합니다.",
+      "poolModeInfo": "활성화되면 업스트림 429/403/401 오류는 계정을 속도 제한 또는 오류 발생으로 표시하지 않고 자동으로 재시도됩니다. 다른 tokendeal 인스턴스를 가리키는 업스트림에 적합합니다.",
       "poolModeRetryCount": "동일 계정 재시도",
       "poolModeRetryCountHint": "풀 모드에만 적용됩니다. 내부 재시도를 비활성화하려면 0을 사용합니다. 기본 {default}, 최대 {max}.",
       "customErrorCodes": "사용자 정의 오류 코드",
@@ -5038,7 +5037,7 @@ export default {
       },
       "linuxdo": {
         "title": "LinuxDo Connect 로그인",
-        "description": "Sub2API 최종 사용자 로그인을 위해 LinuxDo Connect OAuth 구성",
+        "description": "tokendeal 최종 사용자 로그인을 위해 LinuxDo Connect OAuth 구성",
         "enable": "LinuxDo 로그인 활성화",
         "enableHint": "로그인/등록 페이지에 LinuxDo 로그인 표시",
         "clientId": "클라이언트 ID",
@@ -5198,7 +5197,7 @@ export default {
         "backendMode": "백엔드 모드",
         "backendModeDescription": "사용자 등록, 공개 사이트 및 셀프 서비스 기능을 비활성화합니다. 관리자만 로그인하여 플랫폼을 관리할 수 있습니다.",
         "siteName": "사이트 이름",
-        "siteNamePlaceholder": "Sub2API",
+        "siteNamePlaceholder": "tokendeal",
         "siteNameHint": "이메일 및 페이지 제목에 표시됨",
         "siteSubtitle": "사이트 자막",
         "siteSubtitlePlaceholder": "Subscription to API Conversion Platform",
@@ -5289,12 +5288,9 @@ export default {
       "payment": {
         "title": "결제 설정",
         "description": "결제 시스템 옵션 구성",
-        "configGuide": "구성 가이드",
         "enabled": "결제 활성화",
         "enabledHint": "결제 시스템 활성화 또는 비활성화",
         "enabledPaymentTypes": "활성화된 공급자",
-        "enabledPaymentTypesHint": "공급자를 비활성화하면 해당 인스턴스도 비활성화됩니다.",
-        "findProvider": "적합한 EasyPay 제공업체를 찾고 계십니까?",
         "minAmount": "최소 금액",
         "maxAmount": "최대 금액",
         "dailyLimit": "일일 한도",
@@ -5478,7 +5474,7 @@ export default {
         "fromEmail": "이메일에서",
         "fromEmailPlaceholder": "noreply{'@'}example.com",
         "fromName": "이름에서",
-        "fromNamePlaceholder": "Sub2API",
+        "fromNamePlaceholder": "tokendeal",
         "useTls": "TLS 사용",
         "useTlsHint": "SMTP 연결에 대해 TLS 암호화 활성화"
       },
@@ -6055,14 +6051,14 @@ export default {
     },
     "admin": {
       "welcome": {
-        "title": "👋 Sub2API에 오신 것을 환영합니다",
-        "description": "<div style=\"line-height: 1.8;\"><p style=\"margin-bottom: 16px;\">Sub2API는 AI 서비스를 쉽게 관리하고 배포할 수 있도록 도와주는 강력한 AI 서비스 게이트웨이 플랫폼입니다.</p><p style=\"margin-bottom: 12px;\"><b>🎯 핵심 기능:</b></p><ul style=\"margin-left: 20px; margin-bottom: 16px;\"><li>📦 <b>그룹 관리</b> - 다양한 서비스 플랜 생성(VIP, 무료 체험 등)</li><li>🔗 <b>계정 풀</b> - 여러 상위 AI 서비스 계정 연결</li><li>🔑 <b>키 배포</b> - 사용자별 독립 API 키 생성</li><li>💰 <b>과금 관리</b> - 유연한 요율 및 한도 제어</li></ul><p style=\"color: #10b981; font-weight: 600;\">이제 3분 안에 첫 설정을 함께 완료해 봅시다 →</p></div>",
+        "title": "👋 tokendeal에 오신 것을 환영합니다",
+        "description": "<div style=\"line-height: 1.8;\"><p style=\"margin-bottom: 16px;\">tokendeal는 AI 서비스를 쉽게 관리하고 배포할 수 있도록 도와주는 강력한 AI 서비스 게이트웨이 플랫폼입니다.</p><p style=\"margin-bottom: 12px;\"><b>🎯 핵심 기능:</b></p><ul style=\"margin-left: 20px; margin-bottom: 16px;\"><li>📦 <b>그룹 관리</b> - 다양한 서비스 플랜 생성(VIP, 무료 체험 등)</li><li>🔗 <b>계정 풀</b> - 여러 상위 AI 서비스 계정 연결</li><li>🔑 <b>키 배포</b> - 사용자별 독립 API 키 생성</li><li>💰 <b>과금 관리</b> - 유연한 요율 및 한도 제어</li></ul><p style=\"color: #10b981; font-weight: 600;\">이제 3분 안에 첫 설정을 함께 완료해 봅시다 →</p></div>",
         "nextBtn": "설정 시작 🚀",
         "prevBtn": "건너뛰기"
       },
       "groupManage": {
         "title": "📦 1단계: 그룹 관리",
-        "description": "<div style=\"line-height: 1.7;\"><p style=\"margin-bottom: 12px;\"><b>그룹이란 무엇인가요?</b></p><p style=\"margin-bottom: 12px;\">그룹은 Sub2API의 핵심 개념으로, 하나의 \"서비스 패키지\"와 같습니다:</p><ul style=\"margin-left: 20px; margin-bottom: 12px; font-size: 13px;\"><li>🎯 각 그룹에는 여러 상위 계정을 포함할 수 있습니다</li><li>💰 각 그룹은 독립적인 과금 배율을 가집니다</li><li>👥 공개 그룹 또는 전용 그룹으로 설정할 수 있습니다</li></ul><p style=\"margin-top: 12px; padding: 8px 12px; background: #f0fdf4; border-left: 3px solid #10b981; border-radius: 4px; font-size: 13px;\"><b>💡 예시:</b> \"VIP 프리미엄\"(고배율)과 \"무료 체험\"(저배율) 같은 그룹을 만들 수 있습니다</p><p style=\"margin-top: 16px; color: #10b981; font-weight: 600;\">👉 왼쪽 사이드바에서 \"그룹 관리\"를 클릭하세요</p></div>"
+        "description": "<div style=\"line-height: 1.7;\"><p style=\"margin-bottom: 12px;\"><b>그룹이란 무엇인가요?</b></p><p style=\"margin-bottom: 12px;\">그룹은 tokendeal의 핵심 개념으로, 하나의 \"서비스 패키지\"와 같습니다:</p><ul style=\"margin-left: 20px; margin-bottom: 12px; font-size: 13px;\"><li>🎯 각 그룹에는 여러 상위 계정을 포함할 수 있습니다</li><li>💰 각 그룹은 독립적인 과금 배율을 가집니다</li><li>👥 공개 그룹 또는 전용 그룹으로 설정할 수 있습니다</li></ul><p style=\"margin-top: 12px; padding: 8px 12px; background: #f0fdf4; border-left: 3px solid #10b981; border-radius: 4px; font-size: 13px;\"><b>💡 예시:</b> \"VIP 프리미엄\"(고배율)과 \"무료 체험\"(저배율) 같은 그룹을 만들 수 있습니다</p><p style=\"margin-top: 16px; color: #10b981; font-weight: 600;\">👉 왼쪽 사이드바에서 \"그룹 관리\"를 클릭하세요</p></div>"
       },
       "createGroup": {
         "title": "➕ 새 그룹 만들기",
@@ -6154,8 +6150,8 @@ export default {
     },
     "user": {
       "welcome": {
-        "title": "👋 Sub2API에 오신 것을 환영합니다",
-        "description": "<div style=\"line-height: 1.8;\"><p style=\"margin-bottom: 16px;\">안녕하세요! Sub2API AI 서비스 플랫폼에 오신 것을 환영합니다.</p><p style=\"margin-bottom: 12px;\"><b>🎯 빠른 시작:</b></p><ul style=\"margin-left: 20px; margin-bottom: 16px;\"><li>🔑 API 키 생성</li><li>📋 키를 애플리케이션에 복사</li><li>🚀 AI 서비스 사용 시작</li></ul><p style=\"color: #10b981; font-weight: 600;\">1분이면 시작할 수 있습니다 →</p></div>",
+        "title": "👋 tokendeal에 오신 것을 환영합니다",
+        "description": "<div style=\"line-height: 1.8;\"><p style=\"margin-bottom: 16px;\">안녕하세요! tokendeal AI 서비스 플랫폼에 오신 것을 환영합니다.</p><p style=\"margin-bottom: 12px;\"><b>🎯 빠른 시작:</b></p><ul style=\"margin-left: 20px; margin-bottom: 16px;\"><li>🔑 API 키 생성</li><li>📋 키를 애플리케이션에 복사</li><li>🚀 AI 서비스 사용 시작</li></ul><p style=\"color: #10b981; font-weight: 600;\">1분이면 시작할 수 있습니다 →</p></div>",
         "nextBtn": "시작 🚀",
         "prevBtn": "건너뛰기"
       },

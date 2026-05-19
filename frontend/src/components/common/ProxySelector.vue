@@ -321,18 +321,18 @@ onUnmounted(() => {
 <style scoped>
 .select-trigger {
   @apply flex w-full items-center justify-between gap-2;
-  @apply rounded-xl px-4 py-2.5 text-sm;
-  @apply bg-white dark:bg-dark-800;
-  @apply border border-gray-200 dark:border-dark-600;
-  @apply text-gray-900 dark:text-gray-100;
-  @apply transition-all duration-200;
-  @apply focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-500/30;
-  @apply hover:border-gray-300 dark:hover:border-dark-500;
+  @apply rounded-md px-3 py-2 text-sm;
+  @apply bg-white dark:bg-dark-950;
+  @apply border border-gray-200 dark:border-dark-800;
+  @apply text-gray-950 dark:text-gray-50;
+  @apply transition-colors duration-150;
+  @apply focus:border-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-600/20;
+  @apply hover:border-gray-300 dark:hover:border-dark-700;
   @apply cursor-pointer;
 }
 
 .select-trigger-open {
-  @apply border-primary-500 ring-2 ring-primary-500/30;
+  @apply border-primary-600 ring-2 ring-primary-600/20;
 }
 
 .select-trigger-disabled {
@@ -349,16 +349,14 @@ onUnmounted(() => {
 
 .select-dropdown {
   @apply absolute z-[100] mt-2 w-full;
-  @apply bg-white dark:bg-dark-800;
-  @apply rounded-xl;
-  @apply border border-gray-200 dark:border-dark-700;
-  @apply shadow-lg shadow-black/10 dark:shadow-black/30;
+  @apply rounded-md border border-gray-200 bg-white dark:border-dark-800 dark:bg-dark-900;
+  @apply shadow-md shadow-black/10 dark:shadow-black/30;
   @apply overflow-hidden;
 }
 
 .select-header {
   @apply flex items-center gap-2 px-3 py-2;
-  @apply border-b border-gray-100 dark:border-dark-700;
+  @apply border-b border-gray-200 dark:border-dark-800;
 }
 
 .select-search {
@@ -367,13 +365,13 @@ onUnmounted(() => {
 
 .select-search-input {
   @apply flex-1 bg-transparent text-sm;
-  @apply text-gray-900 dark:text-gray-100;
+  @apply text-gray-950 dark:text-gray-50;
   @apply placeholder:text-gray-400 dark:placeholder:text-dark-400;
   @apply focus:outline-none;
 }
 
 .batch-test-btn {
-  @apply flex-shrink-0 rounded-lg p-1.5;
+  @apply flex-shrink-0 rounded-md p-1.5;
   @apply text-gray-500 hover:text-emerald-600 dark:hover:text-emerald-400;
   @apply hover:bg-emerald-50 dark:hover:bg-emerald-900/20;
   @apply transition-colors disabled:cursor-not-allowed disabled:opacity-50;
@@ -385,15 +383,14 @@ onUnmounted(() => {
 
 .select-option {
   @apply flex items-center justify-between gap-2;
-  @apply px-4 py-2.5 text-sm;
+  @apply px-3 py-2 text-sm;
   @apply text-gray-700 dark:text-gray-300;
   @apply cursor-pointer transition-colors duration-150;
   @apply hover:bg-gray-50 dark:hover:bg-dark-700;
 }
 
 .select-option-selected {
-  @apply bg-primary-50 dark:bg-primary-900/20;
-  @apply text-primary-700 dark:text-primary-300;
+  @apply bg-primary-50 text-primary-700 dark:bg-primary-950/30 dark:text-primary-300;
 }
 
 .select-option-label {

@@ -22,7 +22,7 @@ import (
 const (
 	updateCacheKey = "update_check_cache"
 	updateCacheTTL = 1200 // 20 minutes
-	githubRepo     = "Wei-Shaw/sub2api"
+	defaultGitHubRepo = "TokenFree2025/sub2api-hg"
 
 	// Security: allowed download domains for updates
 	allowedDownloadHost = "github.com"
@@ -51,15 +51,17 @@ type UpdateService struct {
 	githubClient   GitHubReleaseClient
 	currentVersion string
 	buildType      string // "source" for manual builds, "release" for CI builds
+	repo           string
 }
 
 // NewUpdateService creates a new UpdateService
-func NewUpdateService(cache UpdateCache, githubClient GitHubReleaseClient, version, buildType string) *UpdateService {
+func NewUpdateService(cache UpdateCache, githubClient GitHubReleaseClient, version, buildType, repo string) *UpdateService {
 	return &UpdateService{
 		cache:          cache,
 		githubClient:   githubClient,
 		currentVersion: version,
 		buildType:      buildType,
+		repo:           normalizeUpdateRepo(repo),
 	}
 }
 
@@ -274,7 +276,7 @@ func (s *UpdateService) Rollback() error {
 }
 
 func (s *UpdateService) fetchLatestRelease(ctx context.Context) (*UpdateInfo, error) {
-	release, err := s.githubClient.FetchLatestRelease(ctx, githubRepo)
+	release, err := s.githubClient.FetchLatestRelease(ctx, s.repo)
 	if err != nil {
 		return nil, err
 	}
@@ -304,6 +306,14 @@ func (s *UpdateService) fetchLatestRelease(ctx context.Context) (*UpdateInfo, er
 		Cached:    false,
 		BuildType: s.buildType,
 	}, nil
+}
+
+func normalizeUpdateRepo(repo string) string {
+	repo = strings.TrimSpace(repo)
+	if repo == "" {
+		return defaultGitHubRepo
+	}
+	return strings.Trim(repo, "/")
 }
 
 func (s *UpdateService) downloadFile(ctx context.Context, downloadURL, dest string) error {
@@ -474,6 +484,7 @@ func (s *UpdateService) getFromCache(ctx context.Context) (*UpdateInfo, error) {
 	}
 
 	var cached struct {
+		Repo        string       `json:"repo"`
 		Latest      string       `json:"latest"`
 		ReleaseInfo *ReleaseInfo `json:"release_info"`
 		Timestamp   int64        `json:"timestamp"`
@@ -484,6 +495,9 @@ func (s *UpdateService) getFromCache(ctx context.Context) (*UpdateInfo, error) {
 
 	if time.Now().Unix()-cached.Timestamp > updateCacheTTL {
 		return nil, fmt.Errorf("cache expired")
+	}
+	if normalizeUpdateRepo(cached.Repo) != s.repo {
+		return nil, fmt.Errorf("cache repo mismatch")
 	}
 
 	return &UpdateInfo{
@@ -498,10 +512,12 @@ func (s *UpdateService) getFromCache(ctx context.Context) (*UpdateInfo, error) {
 
 func (s *UpdateService) saveToCache(ctx context.Context, info *UpdateInfo) {
 	cacheData := struct {
+		Repo        string       `json:"repo"`
 		Latest      string       `json:"latest"`
 		ReleaseInfo *ReleaseInfo `json:"release_info"`
 		Timestamp   int64        `json:"timestamp"`
 	}{
+		Repo:        s.repo,
 		Latest:      info.LatestVersion,
 		ReleaseInfo: info.ReleaseInfo,
 		Timestamp:   time.Now().Unix(),

@@ -2,7 +2,7 @@
   <div class="relative" ref="dropdownRef">
     <button
       @click="showDropdown = !showDropdown"
-      class="inline-flex items-center gap-1.5 rounded-lg border border-gray-200 bg-white px-2.5 py-1.5 text-xs font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-50 dark:border-dark-600 dark:bg-dark-800 dark:text-gray-300 dark:hover:bg-dark-700"
+      class="inline-flex items-center gap-1.5 rounded-lg border border-gray-200 bg-white px-2.5 py-1.5 text-xs font-medium text-gray-700 shadow-sm transition-colors hover:bg-gray-50 dark:border-dark-600 dark:bg-dark-900 dark:text-gray-300 dark:hover:bg-dark-900"
       :title="t('common.autoRefresh.title')"
     >
       <svg
@@ -22,7 +22,7 @@
 
     <div
       v-if="showDropdown"
-      class="absolute right-0 z-20 mt-1 w-44 rounded-lg border border-gray-200 bg-white shadow-lg dark:border-dark-600 dark:bg-dark-800"
+      class="absolute right-0 z-20 mt-1 w-44 rounded-lg border border-gray-200 bg-white shadow-lg dark:border-dark-600 dark:bg-dark-900"
     >
       <div class="p-1.5">
         <button
@@ -34,7 +34,7 @@
             <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z" clip-rule="evenodd" />
           </svg>
         </button>
-        <div class="my-1 border-t border-gray-100 dark:border-gray-700"></div>
+        <div class="my-1 border-t border-gray-200 dark:border-gray-700"></div>
         <button
           v-for="sec in intervals"
           :key="sec"

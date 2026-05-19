@@ -1,5 +1,5 @@
 <template>
-  <header class="glass sticky top-0 z-30 border-b border-gray-200/50 dark:border-dark-700/50">
+  <header class="glass sticky top-0 z-30 border-b border-gray-200 dark:border-dark-800">
     <div class="flex h-16 items-center justify-between px-4 md:px-6">
       <!-- Left: Mobile Menu Toggle + Page Title -->
       <div class="flex items-center gap-4">
@@ -32,7 +32,7 @@
           :href="docUrl"
           target="_blank"
           rel="noopener noreferrer"
-          class="flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-100 hover:text-gray-900 dark:text-dark-400 dark:hover:bg-dark-800 dark:hover:text-white"
+          class="flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-sm font-medium text-gray-600 transition-colors hover:bg-gray-100 hover:text-gray-950 dark:text-dark-400 dark:hover:bg-dark-900 dark:hover:text-white"
         >
           <Icon name="book" size="sm" />
           <span class="hidden sm:inline">{{ t('nav.docs') }}</span>
@@ -47,7 +47,7 @@
         <!-- Balance Display -->
         <div
           v-if="user"
-          class="hidden items-center gap-2 rounded-xl bg-primary-50 px-3 py-1.5 dark:bg-primary-900/20 sm:flex"
+          class="hidden items-center gap-2 rounded-md border border-primary-200 bg-primary-50 px-3 py-1.5 dark:border-primary-900/60 dark:bg-primary-950/30 sm:flex"
         >
           <svg
             class="h-4 w-4 text-primary-600 dark:text-primary-400"
@@ -71,10 +71,10 @@
         <div v-if="user" class="relative" ref="dropdownRef">
           <button
             @click="toggleDropdown"
-            class="flex items-center gap-2 rounded-xl p-1.5 transition-colors hover:bg-gray-100 dark:hover:bg-dark-800"
+            class="flex items-center gap-2 rounded-md p-1.5 transition-colors hover:bg-gray-100 dark:hover:bg-dark-900"
             aria-label="User Menu"
           >
-            <div class="flex h-8 w-8 items-center justify-center overflow-hidden rounded-xl bg-gradient-to-br from-primary-500 to-primary-600 text-sm font-medium text-white shadow-sm">
+            <div class="flex h-8 w-8 items-center justify-center overflow-hidden rounded-md bg-primary-600 text-sm font-medium text-white shadow-sm dark:bg-primary-500 dark:text-dark-950">
               <img
                 v-if="avatarUrl"
                 :src="avatarUrl"
@@ -98,7 +98,7 @@
           <transition name="dropdown">
             <div v-if="dropdownOpen" class="dropdown right-0 mt-2 w-56">
               <!-- User Info -->
-              <div class="border-b border-gray-100 px-4 py-3 dark:border-dark-700">
+              <div class="border-b border-gray-200 px-4 py-3 dark:border-dark-800">
                 <div class="text-sm font-medium text-gray-900 dark:text-white">
                   {{ displayName }}
                 </div>
@@ -106,7 +106,7 @@
               </div>
 
               <!-- Balance (mobile only) -->
-              <div class="border-b border-gray-100 px-4 py-2 dark:border-dark-700 sm:hidden">
+              <div class="border-b border-gray-200 px-4 py-2 dark:border-dark-800 sm:hidden">
                 <div class="text-xs text-gray-500 dark:text-dark-400">
                   {{ t('common.balance') }}
                 </div>
@@ -126,30 +126,12 @@
                   {{ t('nav.apiKeys') }}
                 </router-link>
 
-                <a
-                  v-if="authStore.isAdmin"
-                  href="https://github.com/Wei-Shaw/sub2api"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  @click="closeDropdown"
-                  class="dropdown-item"
-                >
-                  <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
-                    <path
-                      fill-rule="evenodd"
-                      clip-rule="evenodd"
-                      d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.464-1.11-1.464-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z"
-                    />
-                  </svg>
-                  {{ t('nav.github') }}
-                </a>
-
               </div>
 
               <!-- Contact Support (only show if configured) -->
               <div
                 v-if="contactInfo"
-                class="border-t border-gray-100 px-4 py-2.5 dark:border-dark-700"
+                class="border-t border-gray-200 px-4 py-2.5 dark:border-dark-800"
               >
                 <div class="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
                   <svg
@@ -172,7 +154,7 @@
                 </div>
               </div>
 
-              <div v-if="showOnboardingButton" class="border-t border-gray-100 py-1 dark:border-dark-700">
+              <div v-if="showOnboardingButton" class="border-t border-gray-200 py-1 dark:border-dark-800">
                 <button @click="handleReplayGuide" class="dropdown-item w-full">
                   <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
                     <path
@@ -183,7 +165,7 @@
                 </button>
               </div>
 
-              <div class="border-t border-gray-100 py-1 dark:border-dark-700">
+              <div class="border-t border-gray-200 py-1 dark:border-dark-800">
                 <button
                   @click="handleLogout"
                   class="dropdown-item w-full text-red-600 hover:bg-red-50 dark:text-red-400 dark:hover:bg-red-900/20"

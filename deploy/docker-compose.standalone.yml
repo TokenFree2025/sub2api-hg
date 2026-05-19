@@ -38,6 +38,8 @@ services:
       - SERVER_PORT=8080
       - SERVER_MODE=${SERVER_MODE:-release}
       - RUN_MODE=${RUN_MODE:-standard}
+      - UPDATE_REPO=${UPDATE_REPO:-TokenFree2025/sub2api-hg}
+      - UPDATE_PROXY_URL=${UPDATE_PROXY_URL:-}
 
       # =======================================================================
       # Database Configuration (PostgreSQL) - Required

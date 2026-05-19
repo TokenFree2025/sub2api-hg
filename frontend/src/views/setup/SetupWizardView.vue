@@ -1,14 +1,14 @@
 <template>
   <div
-    class="flex min-h-screen items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 p-4 dark:from-dark-900 dark:to-dark-800"
+    class="flex min-h-screen items-center justify-center bg-gray-50 p-4 dark:bg-dark-950"
   >
     <div class="w-full max-w-2xl">
       <!-- Logo & Title -->
       <div class="mb-8 text-center">
         <div
-          class="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-2xl bg-gradient-to-br from-primary-500 to-primary-600 shadow-lg"
+          class="mb-4 inline-flex h-16 w-16 items-center justify-center rounded-lg border border-primary-200 bg-primary-50 text-primary-700 shadow-sm dark:border-primary-900/60 dark:bg-primary-950/30 dark:text-primary-300"
         >
-          <Icon name="cog" size="xl" class="text-white" />
+          <Icon name="cog" size="xl" />
         </div>
         <h1 class="text-3xl font-bold text-gray-900 dark:text-white">{{ t('setup.title') }}</h1>
         <p class="mt-2 text-gray-500 dark:text-dark-400">{{ t('setup.description') }}</p>
@@ -21,11 +21,11 @@
             <div class="flex items-center">
               <div
                 :class="[
-                  'flex h-10 w-10 items-center justify-center rounded-full text-sm font-semibold transition-all',
+                  'flex h-10 w-10 items-center justify-center rounded-md text-sm font-semibold transition-colors',
                   currentStep > index
-                    ? 'bg-primary-500 text-white'
+                    ? 'bg-primary-600 text-white'
                     : currentStep === index
-                      ? 'bg-primary-500 text-white ring-4 ring-primary-100 dark:ring-primary-900'
+                      ? 'bg-primary-600 text-white ring-4 ring-primary-100 dark:ring-primary-950'
                       : 'bg-gray-200 text-gray-500 dark:bg-dark-700 dark:text-dark-400'
                 ]"
               >
@@ -51,14 +51,14 @@
             <div
               v-if="index < steps.length - 1"
               class="mx-3 h-0.5 w-12"
-              :class="currentStep > index ? 'bg-primary-500' : 'bg-gray-200 dark:bg-dark-700'"
+              :class="currentStep > index ? 'bg-primary-600' : 'bg-gray-200 dark:bg-dark-700'"
             ></div>
           </template>
         </div>
       </div>
 
       <!-- Step Content -->
-      <div class="rounded-2xl bg-white p-8 shadow-xl dark:bg-dark-800">
+      <div class="rounded-lg border border-gray-200 bg-white p-8 shadow-sm dark:border-dark-800 dark:bg-dark-900">
         <!-- Step 1: Database -->
         <div v-if="currentStep === 0" class="space-y-6">
           <div class="mb-6 text-center">
@@ -91,7 +91,7 @@
             </div>
           </div>
 
-          <div class="flex items-center justify-between rounded-xl border border-gray-200 p-3 dark:border-dark-700">
+          <div class="flex items-center justify-between rounded-md border border-gray-200 p-3 dark:border-dark-800">
             <div>
               <p class="text-sm font-medium text-gray-900 dark:text-white">
                 {{ t("setup.redis.enableTls") }}
@@ -237,7 +237,7 @@
             </div>
           </div>
 
-          <div class="flex items-center justify-between rounded-xl border border-gray-200 p-3 dark:border-dark-700">
+          <div class="flex items-center justify-between rounded-md border border-gray-200 p-3 dark:border-dark-800">
             <div>
               <p class="text-sm font-medium text-gray-900 dark:text-white">
                 {{ t("setup.redis.enableTls") }}
@@ -351,7 +351,7 @@
           </div>
 
           <div class="space-y-4">
-            <div class="rounded-xl bg-gray-50 p-4 dark:bg-dark-700">
+            <div class="rounded-md border border-gray-200 bg-gray-50 p-4 dark:border-dark-800 dark:bg-dark-950">
               <h3 class="mb-2 text-sm font-medium text-gray-500 dark:text-dark-400">
                 {{ t('setup.ready.database') }}
               </h3>
@@ -362,7 +362,7 @@
               </p>
             </div>
 
-            <div class="rounded-xl bg-gray-50 p-4 dark:bg-dark-700">
+            <div class="rounded-md border border-gray-200 bg-gray-50 p-4 dark:border-dark-800 dark:bg-dark-950">
               <h3 class="mb-2 text-sm font-medium text-gray-500 dark:text-dark-400">
                 {{ t('setup.ready.redis') }}
               </h3>
@@ -371,7 +371,7 @@
               </p>
             </div>
 
-            <div class="rounded-xl bg-gray-50 p-4 dark:bg-dark-700">
+            <div class="rounded-md border border-gray-200 bg-gray-50 p-4 dark:border-dark-800 dark:bg-dark-950">
               <h3 class="mb-2 text-sm font-medium text-gray-500 dark:text-dark-400">
                 {{ t('setup.ready.adminEmail') }}
               </h3>
@@ -383,7 +383,7 @@
         <!-- Error Message -->
         <div
           v-if="errorMessage"
-          class="mt-6 rounded-xl border border-red-200 bg-red-50 p-4 dark:border-red-800/50 dark:bg-red-900/20"
+          class="mt-6 rounded-md border border-red-200 bg-red-50 p-4 dark:border-red-900/60 dark:bg-red-950/30"
         >
           <div class="flex items-start gap-3">
             <Icon name="exclamationCircle" size="md" class="flex-shrink-0 text-red-500" />
@@ -394,7 +394,7 @@
         <!-- Success Message -->
         <div
           v-if="installSuccess"
-          class="mt-6 rounded-xl border border-green-200 bg-green-50 p-4 dark:border-green-800/50 dark:bg-green-900/20"
+          class="mt-6 rounded-md border border-green-200 bg-green-50 p-4 dark:border-green-900/60 dark:bg-green-950/30"
         >
           <div class="flex items-start gap-3">
             <svg

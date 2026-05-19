@@ -1,5 +1,5 @@
 /**
- * Vue Router configuration for Sub2API frontend
+ * Vue Router configuration for tokendeal frontend
  * Defines all application routes with lazy loading and navigation guards
  */
 
@@ -9,6 +9,7 @@ import { useAppStore } from '@/stores/app'
 import { useAdminSettingsStore } from '@/stores/adminSettings'
 import { useNavigationLoadingState } from '@/composables/useNavigationLoading'
 import { useRoutePrefetch } from '@/composables/useRoutePrefetch'
+import { ensureLocaleAllowedForRoute } from '@/i18n'
 import { resolveDocumentTitle } from './title'
 
 /**
@@ -700,9 +701,10 @@ function isBackendModePublicRouteAllowed(path: string, hasPendingAuthSession: bo
   return false
 }
 
-router.beforeEach((to, _from, next) => {
+router.beforeEach(async (to, _from, next) => {
   // 开始导航加载状态
   navigationLoading.startNavigation()
+  await ensureLocaleAllowedForRoute(to.path)
 
   const authStore = useAuthStore()
 
@@ -722,7 +724,7 @@ router.beforeEach((to, _from, next) => {
     const menuItem = publicItems.find((item) => item.id === id)
       ?? (authStore.isAdmin ? adminSettingsStore.customMenuItems.find((item) => item.id === id) : undefined)
     if (menuItem?.label) {
-      const siteName = appStore.siteName || 'Sub2API'
+      const siteName = appStore.siteName || 'tokendeal'
       document.title = `${menuItem.label} - ${siteName}`
     } else {
       document.title = resolveDocumentTitle(to.meta.title, appStore.siteName, to.meta.titleKey as string)

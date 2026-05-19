@@ -79,7 +79,6 @@
   border: none !important;
   z-index: 20 !important;
   border-radius: 4px !important;
-  display: flex !important;
   align-items: center !important;
   justify-content: center !important;
 }
@@ -180,7 +179,7 @@
 }
 
 /* Nav Buttons */
-.theme-tour-popover button {
+.theme-tour-popover .driver-popover-footer button {
   display: inline-flex !important;
   align-items: center !important;
   justify-content: center !important;
