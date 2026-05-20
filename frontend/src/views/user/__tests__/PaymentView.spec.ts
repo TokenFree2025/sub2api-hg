@@ -84,11 +84,13 @@ vi.mock('@/utils/device', () => ({
   isMobileDevice: () => true,
 }))
 
-function checkoutInfoFixture() {
+function checkoutInfoFixture(options: { currency?: string; method?: string } = {}) {
+  const method = options.method || 'wxpay'
   return {
     data: {
       methods: {
-        wxpay: {
+        [method]: {
+          currency: options.currency,
           daily_limit: 0,
           daily_used: 0,
           daily_remaining: 0,
@@ -109,6 +111,20 @@ function checkoutInfoFixture() {
       stripe_publishable_key: '',
     },
   }
+}
+
+function mountPaymentView() {
+  return shallowMount(PaymentView, {
+    global: {
+      stubs: {
+        AppLayout: {
+          template: '<div><slot /></div>',
+        },
+        Teleport: true,
+        Transition: false,
+      },
+    },
+  })
 }
 
 function checkoutInfoWithPlansFixture() {
@@ -179,6 +195,64 @@ function oauthOrderFixture() {
     },
   }
 }
+
+describe('PaymentView quick amounts', () => {
+  beforeEach(() => {
+    routeState.path = '/purchase'
+    routeState.query = {}
+    routerReplace.mockReset().mockResolvedValue(undefined)
+    routerPush.mockReset().mockResolvedValue(undefined)
+    routerResolve.mockClear()
+    createOrder.mockReset()
+    refreshUser.mockReset()
+    fetchActiveSubscriptions.mockReset().mockResolvedValue(undefined)
+    showError.mockReset()
+    showInfo.mockReset()
+    showWarning.mockReset()
+    getCheckoutInfo.mockReset().mockResolvedValue(checkoutInfoFixture())
+    bridgeInvoke.mockReset()
+    window.localStorage.clear()
+    ;(window as Window & { WeixinJSBridge?: { invoke: typeof bridgeInvoke } }).WeixinJSBridge = {
+      invoke: bridgeInvoke,
+    }
+  })
+
+  it('uses KRW payment-sized quick amounts on the purchase page', async () => {
+    getCheckoutInfo.mockResolvedValue(checkoutInfoFixture({ method: 'stripe', currency: 'KRW' }))
+
+    const wrapper = mountPaymentView()
+    await flushPromises()
+    await flushPromises()
+
+    expect(wrapper.html()).toContain('amount-input')
+    expect(wrapper.findComponent({ name: 'AmountInput' }).props('amounts')).toEqual([
+      5000,
+      10000,
+      20000,
+      50000,
+      100000,
+      200000,
+      300000,
+      500000,
+      1000000,
+    ])
+  })
+
+  it('marks custom KRW recharge amounts unavailable unless they are multiples of 200', async () => {
+    getCheckoutInfo.mockResolvedValue(checkoutInfoFixture({ method: 'stripe', currency: 'KRW' }))
+
+    const wrapper = mountPaymentView()
+    await flushPromises()
+    await flushPromises()
+
+    const amountInput = wrapper.findComponent({ name: 'AmountInput' })
+    await amountInput.vm.$emit('update:modelValue', 1050)
+    await flushPromises()
+
+    expect(wrapper.text()).toContain('payment.amountNoMethod')
+    expect(wrapper.find('button.btn').attributes('disabled')).toBeDefined()
+  })
+})
 
 describe('PaymentView WeChat JSAPI flow', () => {
   beforeEach(() => {

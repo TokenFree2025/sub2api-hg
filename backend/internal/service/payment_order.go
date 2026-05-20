@@ -85,6 +85,9 @@ func (s *PaymentService) CreateOrder(ctx context.Context, req CreateOrderRequest
 			return nil, err
 		}
 	}
+	if err := validateCurrencyBalanceRechargeAmount(req, selectedCurrency); err != nil {
+		return nil, err
+	}
 	if err := validateSelectedCreateOrderAmountCurrency(payAmountStr, sel); err != nil {
 		return nil, err
 	}
@@ -599,6 +602,30 @@ func validateCreateOrderAmountCurrency(amount float64, currency string) error {
 	if _, err := payment.AmountToMinorUnit(amountStr, currency); err != nil {
 		return infraerrors.BadRequest("INVALID_AMOUNT", err.Error()).
 			WithMetadata(map[string]string{"currency": currency})
+	}
+	return nil
+}
+
+func validateCurrencyBalanceRechargeAmount(req CreateOrderRequest, currency string) error {
+	if req.OrderType != "" && req.OrderType != payment.OrderTypeBalance {
+		return nil
+	}
+	normalizedCurrency, err := payment.NormalizePaymentCurrency(currency)
+	if err != nil {
+		return infraerrors.BadRequest("INVALID_AMOUNT", err.Error()).
+			WithMetadata(map[string]string{"currency": currency})
+	}
+	if normalizedCurrency != "KRW" {
+		return nil
+	}
+	minorAmount, err := payment.AmountToMinorUnit(strconv.FormatFloat(req.Amount, 'f', -1, 64), normalizedCurrency)
+	if err != nil {
+		return infraerrors.BadRequest("INVALID_AMOUNT", err.Error()).
+			WithMetadata(map[string]string{"currency": normalizedCurrency})
+	}
+	if minorAmount%200 != 0 {
+		return infraerrors.BadRequest("INVALID_AMOUNT", "KRW balance recharge amount must be a multiple of 200").
+			WithMetadata(map[string]string{"currency": normalizedCurrency, "step": "200"})
 	}
 	return nil
 }

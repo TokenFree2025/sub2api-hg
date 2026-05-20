@@ -138,6 +138,31 @@ func TestCalculateCreateOrderPayAmountRejectsFractionalZeroDecimal(t *testing.T)
 	}
 }
 
+func TestValidateKRWBalanceRechargeAmountRequiresMultipleOf200(t *testing.T) {
+	t.Parallel()
+
+	err := validateCurrencyBalanceRechargeAmount(CreateOrderRequest{
+		OrderType:   payment.OrderTypeBalance,
+		PaymentType: payment.TypeStripe,
+		Amount:      1000,
+	}, "KRW")
+	if err != nil {
+		t.Fatalf("expected 1000 KRW to pass: %v", err)
+	}
+
+	err = validateCurrencyBalanceRechargeAmount(CreateOrderRequest{
+		OrderType:   payment.OrderTypeBalance,
+		PaymentType: payment.TypeStripe,
+		Amount:      1050,
+	}, "KRW")
+	if err == nil {
+		t.Fatal("expected non-200-multiple KRW balance recharge amount to fail")
+	}
+	if appErr := infraerrors.FromError(err); appErr.Reason != "INVALID_AMOUNT" {
+		t.Fatalf("reason = %q, want INVALID_AMOUNT", appErr.Reason)
+	}
+}
+
 func TestBuildProviderCreatePaymentRequestIncludesCustomerEmail(t *testing.T) {
 	t.Parallel()
 

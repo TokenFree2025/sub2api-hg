@@ -338,7 +338,7 @@ func formatPositiveFloat(v *float64) string {
 	if v == nil || *v <= 0 {
 		return "" // empty → parsePaymentConfig uses default
 	}
-	return strconv.FormatFloat(*v, 'f', 2, 64)
+	return strconv.FormatFloat(*v, 'f', -1, 64)
 }
 
 func formatNonNegativeFloat(v *float64) string {

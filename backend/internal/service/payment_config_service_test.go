@@ -433,6 +433,23 @@ func TestUpdatePaymentConfig_PersistsVisibleMethodRouting(t *testing.T) {
 	}
 }
 
+func TestUpdatePaymentConfig_PreservesSmallBalanceRechargeMultiplier(t *testing.T) {
+	repo := &paymentConfigSettingRepoStub{values: map[string]string{}}
+	svc := &PaymentConfigService{settingRepo: repo}
+
+	multiplier := 0.005
+	err := svc.UpdatePaymentConfig(context.Background(), UpdatePaymentConfigRequest{
+		BalanceRechargeMultiplier: &multiplier,
+	})
+	if err != nil {
+		t.Fatalf("UpdatePaymentConfig returned error: %v", err)
+	}
+
+	if got := repo.values[SettingBalanceRechargeMult]; got != "0.005" {
+		t.Fatalf("balance recharge multiplier = %q, want 0.005", got)
+	}
+}
+
 func paymentConfigStrPtr(value string) *string {
 	return &value
 }
