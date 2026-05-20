@@ -16,6 +16,7 @@ const (
 	TypeStripe       PaymentType = "stripe"
 	TypeCard         PaymentType = "card"
 	TypeLink         PaymentType = "link"
+	TypeKakaoPay     PaymentType = "kakao_pay"
 	TypeEasyPay      PaymentType = "easypay"
 	TypeAirwallex    PaymentType = "airwallex"
 )
@@ -85,7 +86,7 @@ func GetBasePaymentType(t string) string {
 		return TypeEasyPay
 	case t == TypeAirwallex:
 		return TypeAirwallex
-	case t == TypeStripe || t == TypeCard || t == TypeLink:
+	case t == TypeStripe || t == TypeCard || t == TypeLink || t == TypeKakaoPay:
 		return TypeStripe
 	case len(t) >= len(TypeAlipay) && t[:len(TypeAlipay)] == TypeAlipay:
 		return TypeAlipay
@@ -106,6 +107,7 @@ type CreatePaymentRequest struct {
 	ReturnURL          string // Browser redirect URL after payment
 	OpenID             string // WeChat JSAPI payer OpenID when available
 	ClientIP           string // Payer's IP address
+	CustomerEmail      string // Buyer email when a provider requires it
 	IsMobile           bool   // Whether the request comes from a mobile device
 	InstanceSubMethods string // Comma-separated sub-methods from instance supported_types (for Stripe)
 }

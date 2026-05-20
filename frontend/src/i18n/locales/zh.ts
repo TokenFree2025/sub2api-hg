@@ -6627,6 +6627,7 @@ export default {
       airwallex: 'Airwallex',
       card: '银行卡',
       link: 'Link',
+      kakao_pay: 'Kakao Pay',
       alipay_direct: '支付宝（直连）',
       wxpay_direct: '微信支付（直连）',
     },

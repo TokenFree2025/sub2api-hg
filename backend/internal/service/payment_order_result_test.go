@@ -138,6 +138,25 @@ func TestCalculateCreateOrderPayAmountRejectsFractionalZeroDecimal(t *testing.T)
 	}
 }
 
+func TestBuildProviderCreatePaymentRequestIncludesCustomerEmail(t *testing.T) {
+	t.Parallel()
+
+	req := buildProviderCreatePaymentRequest(CreateOrderRequest{
+		PaymentType:   payment.TypeStripe,
+		ClientIP:      "127.0.0.1",
+		CustomerEmail: " buyer@example.com ",
+	}, &payment.InstanceSelection{
+		SupportedTypes: "kakao_pay",
+	}, "sub2_123", "1000", "Kakao Pay recharge")
+
+	if req.CustomerEmail != "buyer@example.com" {
+		t.Fatalf("CustomerEmail = %q, want buyer@example.com", req.CustomerEmail)
+	}
+	if req.InstanceSubMethods != "kakao_pay" {
+		t.Fatalf("InstanceSubMethods = %q, want kakao_pay", req.InstanceSubMethods)
+	}
+}
+
 func TestMaybeBuildWeChatOAuthRequiredResponse(t *testing.T) {
 	t.Setenv("PAYMENT_RESUME_SIGNING_KEY", "0123456789abcdef0123456789abcdef")
 

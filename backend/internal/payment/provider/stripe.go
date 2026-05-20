@@ -85,10 +85,11 @@ func (s *Stripe) currency() string {
 
 // stripePaymentMethodTypes maps our PaymentType to Stripe payment_method_types.
 var stripePaymentMethodTypes = map[string][]string{
-	payment.TypeCard:   {"card"},
-	payment.TypeAlipay: {"alipay"},
-	payment.TypeWxpay:  {"wechat_pay"},
-	payment.TypeLink:   {"link"},
+	payment.TypeCard:     {"card"},
+	payment.TypeAlipay:   {"alipay"},
+	payment.TypeWxpay:    {"wechat_pay"},
+	payment.TypeLink:     {"link"},
+	payment.TypeKakaoPay: {"kakao_pay"},
 }
 
 // CreatePayment creates a Stripe PaymentIntent.
@@ -115,6 +116,9 @@ func (s *Stripe) CreatePayment(ctx context.Context, req payment.CreatePaymentReq
 		PaymentMethodTypes: pmTypes,
 		Description:        stripe.String(req.Subject),
 		Metadata:           map[string]string{"orderId": req.OrderID},
+	}
+	if customerEmail := strings.TrimSpace(req.CustomerEmail); customerEmail != "" {
+		params.ReceiptEmail = stripe.String(customerEmail)
 	}
 
 	// WeChat Pay requires payment_method_options with client type

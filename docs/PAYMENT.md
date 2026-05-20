@@ -24,7 +24,7 @@ Sub2API has a built-in payment system that enables user self-service top-up with
 | **EasyPay** | Alipay, WeChat Pay | Third-party aggregation via EasyPay protocol |
 | **Alipay (Direct)** | Desktop QR code, mobile Alipay redirect | Direct integration with Alipay Open Platform, returning desktop QR codes and mobile WAP/app launch links |
 | **WeChat Pay (Direct)** | Native QR, H5, MP/JSAPI Pay | Direct integration with WeChat Pay APIv3 with environment-aware routing |
-| **Stripe** | Card, Alipay, WeChat Pay, Link, etc. | International payments, multi-currency support |
+| **Stripe** | Card, Alipay, WeChat Pay, Link, Kakao Pay, etc. | International payments, multi-currency support |
 
 > Alipay/WeChat Pay direct and EasyPay can both exist as backend provider instances, but the frontend always exposes only two visible buttons: `Alipay` and `WeChat Pay`. Admins choose exactly one source for each visible method: direct or EasyPay. Direct channels connect to payment APIs directly with lower fees; EasyPay aggregates through third-party platforms with easier setup.
 
@@ -154,6 +154,8 @@ International payment platform supporting multiple payment methods and currencie
 | **Publishable Key** | Stripe publishable key (`pk_live_...` or `pk_test_...`) | Yes |
 | **Webhook Secret** | Stripe Webhook signing secret (`whsec_...`) | Yes |
 
+Kakao Pay is configured as a Stripe sub-method. Use a Stripe provider instance with `KRW` currency when enabling `kakao_pay`.
+
 ---
 
 ## Provider Instance Management
@@ -231,7 +233,7 @@ User selects amount and payment method
   ├─ EasyPay     → QR code / H5 redirect
   ├─ Alipay      → Desktop QR payload (Face-to-Face preferred, Website Pay fallback) / mobile Alipay redirect
   ├─ WeChat Pay  → Desktop Native QR / non-WeChat H5 / in-WeChat JSAPI
-  └─ Stripe      → Payment Element (card/Alipay/WeChat/etc.)
+  └─ Stripe      → Payment Element (card/Alipay/WeChat/Kakao Pay/etc.)
        │
        ▼
   Webhook callback verified → Order PAID

@@ -6442,6 +6442,7 @@ export default {
       airwallex: 'Airwallex',
       card: 'Card',
       link: 'Link',
+      kakao_pay: 'Kakao Pay',
       alipay_direct: 'Alipay (Direct)',
       wxpay_direct: 'WeChat Pay (Direct)',
     },

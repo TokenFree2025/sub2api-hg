@@ -435,11 +435,12 @@ func (s *PaymentService) invokeProvider(ctx context.Context, order *dbent.Paymen
 		return nil, err
 	}
 	providerReq := buildProviderCreatePaymentRequest(CreateOrderRequest{
-		PaymentType: req.PaymentType,
-		OpenID:      req.OpenID,
-		ClientIP:    req.ClientIP,
-		IsMobile:    req.IsMobile,
-		ReturnURL:   providerReturnURL,
+		PaymentType:   req.PaymentType,
+		OpenID:        req.OpenID,
+		ClientIP:      req.ClientIP,
+		CustomerEmail: order.UserEmail,
+		IsMobile:      req.IsMobile,
+		ReturnURL:     providerReturnURL,
 	}, sel, outTradeNo, payAmountStr, subject)
 	pr, err := prov.CreatePayment(ctx, providerReq)
 	if err != nil {
@@ -485,6 +486,7 @@ func buildProviderCreatePaymentRequest(req CreateOrderRequest, sel *payment.Inst
 		ReturnURL:          req.ReturnURL,
 		OpenID:             strings.TrimSpace(req.OpenID),
 		ClientIP:           req.ClientIP,
+		CustomerEmail:      strings.TrimSpace(req.CustomerEmail),
 		IsMobile:           req.IsMobile,
 		InstanceSubMethods: selectedInstanceSupportedTypes(sel),
 	}

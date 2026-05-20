@@ -13,7 +13,7 @@ import (
 
 // GetAvailableMethodLimits collects all payment types from enabled provider
 // instances and returns limits for each, plus the global widest range.
-// Stripe sub-types (card, link) are aggregated under "stripe".
+// Stripe sub-types (card, link, Alipay, WeChat Pay, Kakao Pay) are aggregated under "stripe".
 func (s *PaymentConfigService) GetAvailableMethodLimits(ctx context.Context) (*MethodLimitsResponse, error) {
 	instances, err := s.entClient.PaymentProviderInstance.Query().
 		Where(paymentproviderinstance.EnabledEQ(true)).All(ctx)
@@ -164,7 +164,7 @@ func (s *PaymentConfigService) pcInstancePaymentCurrency(inst *dbent.PaymentProv
 }
 
 // pcGroupByPaymentType groups instances by user-facing payment type.
-// For Stripe providers, ALL sub-types (card, link, alipay, wxpay) map to "stripe"
+// For Stripe providers, ALL sub-types (card, link, alipay, wxpay, kakao_pay) map to "stripe"
 // because the user sees a single "Stripe" button, not individual sub-methods.
 // Uses a seen set to avoid counting one instance twice.
 func pcGroupByPaymentType(instances []*dbent.PaymentProviderInstance) map[string][]*dbent.PaymentProviderInstance {

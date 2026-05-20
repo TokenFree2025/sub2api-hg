@@ -75,6 +75,7 @@ type CreateOrderRequest struct {
 	PaymentType     string
 	OpenID          string
 	ClientIP        string
+	CustomerEmail   string
 	IsMobile        bool
 	IsWeChatBrowser bool
 	SrcHost         string
