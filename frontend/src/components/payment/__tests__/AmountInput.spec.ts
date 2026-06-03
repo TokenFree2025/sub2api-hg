@@ -17,12 +17,12 @@ describe('AmountInput', () => {
     })
 
     expect(wrapper.findAll('button').map((button) => button.text())).toEqual([
-      '1100',
-      '5500',
+      '1200',
+      '5400',
       '11000',
       '22000',
       '55000',
-      '82500',
+      '82400',
     ])
     expect(wrapper.text()).toContain('₩')
   })

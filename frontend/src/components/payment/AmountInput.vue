@@ -55,7 +55,7 @@ const props = withDefaults(defineProps<{
   min?: number
   max?: number
 }>(), {
-  amounts: () => [1100, 5500, 11000, 22000, 55000, 82500],
+  amounts: () => [1200, 5400, 11000, 22000, 55000, 82400],
   min: 0,
   max: 0,
 })

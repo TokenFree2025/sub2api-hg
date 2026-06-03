@@ -226,12 +226,12 @@ describe('PaymentView quick amounts', () => {
 
     expect(wrapper.html()).toContain('amount-input')
     expect(wrapper.findComponent({ name: 'AmountInput' }).props('amounts')).toEqual([
-      1100,
-      5500,
+      1200,
+      5400,
       11000,
       22000,
       55000,
-      82500,
+      82400,
     ])
   })
 
