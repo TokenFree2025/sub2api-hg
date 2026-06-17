@@ -1,0 +1,1596 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TokenDeal Landing</title>
+    <meta
+      name="description"
+      content="TokenDeal 충전식 AI 코딩 크레딧 랜딩페이지"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Google+Sans+Code:ital,wght@0,400;0,500;1,400&family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #ffffff;
+        --surface: #f8fafd;
+        --surface-strong: #f1f4f9;
+        --text: #16181d;
+        --muted: #5f6673;
+        --soft: #87909f;
+        --line: #dfe5ee;
+        --line-strong: #cbd5e1;
+        --blue: #1a73e8;
+        --blue-strong: #0b57d0;
+        --blue-soft: #e8f0fe;
+        --blue-faint: #f5f9ff;
+        --green: #34a853;
+        --green-soft: #e8f5ee;
+        --yellow: #fbbc04;
+        --red: #ea4335;
+        --ink: #111827;
+        --radius: 8px;
+        --shadow: 0 30px 90px rgba(30, 41, 59, 0.16);
+        --shadow-card: 0 16px 44px rgba(30, 41, 59, 0.08);
+        --shadow-soft: 0 10px 30px rgba(30, 41, 59, 0.06);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        background: linear-gradient(180deg, #fbfdff 0%, var(--bg) 28rem);
+        color: var(--text);
+        font-family:
+          "Noto Sans KR",
+          "Google Sans",
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          sans-serif;
+        letter-spacing: 0;
+        overflow-x: hidden;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      button,
+      summary {
+        font: inherit;
+      }
+
+      .page {
+        min-height: 100vh;
+        overflow-x: hidden;
+        max-width: 100vw;
+      }
+
+      .shell {
+        width: min(1160px, calc(100% - 40px));
+        margin: 0 auto;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        border-bottom: 1px solid rgba(223, 229, 238, 0.76);
+        background: rgba(255, 255, 255, 0.78);
+        backdrop-filter: blur(22px) saturate(1.15);
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        min-height: 68px;
+        gap: 18px;
+      }
+
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 800;
+        color: var(--ink);
+        letter-spacing: -0.01em;
+      }
+
+      .brand-logo {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        object-fit: cover;
+        box-shadow: 0 8px 18px rgba(17, 24, 39, 0.14);
+      }
+
+      .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        color: var(--muted);
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .icon-button {
+        display: inline-grid;
+        place-items: center;
+        width: 40px;
+        height: 40px;
+        border: 1px solid var(--line);
+        border-radius: 50%;
+        background: #fff;
+        color: var(--muted);
+      }
+
+      .cta {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 46px;
+        border-radius: 999px;
+        font-weight: 800;
+        white-space: nowrap;
+        transition:
+          transform 160ms ease,
+          box-shadow 160ms ease,
+          background 160ms ease,
+          border-color 160ms ease;
+      }
+
+      .cta {
+        gap: 10px;
+        border: 1px solid var(--blue-strong);
+        background: var(--blue);
+        color: #fff;
+        padding: 0 22px;
+        box-shadow: 0 14px 34px rgba(26, 115, 232, 0.3);
+      }
+
+      .cta:hover {
+        background: var(--blue-strong);
+        box-shadow: 0 18px 42px rgba(26, 115, 232, 0.34);
+        transform: translateY(-1px);
+      }
+
+      .cta:focus-visible,
+      .icon-button:focus-visible {
+        outline: 3px solid rgba(26, 115, 232, 0.22);
+        outline-offset: 3px;
+      }
+
+      .section {
+        padding: 112px 0;
+      }
+
+      .section.band {
+        background:
+          linear-gradient(180deg, rgba(248, 250, 253, 0.86), rgba(248, 250, 253, 0.98)),
+          var(--surface);
+        border-top: 1px solid var(--line);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .hero {
+        position: relative;
+        min-height: calc(100vh - 68px);
+        display: flex;
+        align-items: center;
+        padding: 58px 0 72px;
+        background:
+          linear-gradient(#edf2f7 1px, transparent 1px),
+          linear-gradient(90deg, #edf2f7 1px, transparent 1px),
+          linear-gradient(135deg, rgba(232, 240, 254, 0.95) 0%, rgba(255, 255, 255, 0) 42%),
+          linear-gradient(180deg, #fbfdff 0%, #ffffff 100%);
+        background-size: 56px 56px;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          linear-gradient(115deg, rgba(26, 115, 232, 0.1), transparent 34%),
+          linear-gradient(280deg, rgba(52, 168, 83, 0.08), transparent 28%);
+        pointer-events: none;
+      }
+
+      .hero::after {
+        content: "";
+        position: absolute;
+        inset: auto 0 0;
+        height: 34%;
+        background: linear-gradient(to bottom, rgba(255, 255, 255, 0), #fff);
+        pointer-events: none;
+      }
+
+      .hero-grid {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        grid-template-columns: minmax(0, 0.9fr) minmax(460px, 1fr);
+        align-items: center;
+        gap: 58px;
+      }
+
+      .hero-grid > * {
+        min-width: 0;
+      }
+
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        margin-bottom: 22px;
+        border: 1px solid rgba(203, 213, 225, 0.86);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.86);
+        box-shadow: var(--shadow-soft);
+        padding: 7px 12px;
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 800;
+      }
+
+      .eyebrow-dot {
+        flex: 0 0 auto;
+        width: 8px;
+        height: 8px;
+        margin-right: 28px;
+        border-radius: 50%;
+        background: var(--green);
+        box-shadow: 14px 0 0 var(--yellow), 28px 0 0 var(--red);
+      }
+
+      h1,
+      h2,
+      h3,
+      p {
+        margin: 0;
+      }
+
+      h1 {
+        max-width: 720px;
+        color: var(--ink);
+        font-size: clamp(42px, 5vw, 70px);
+        line-height: 1.01;
+        letter-spacing: 0;
+        font-weight: 800;
+        overflow-wrap: break-word;
+        word-break: keep-all;
+      }
+
+      .hero-title-line {
+        display: block;
+      }
+
+      .hero-copy {
+        max-width: 660px;
+        margin-top: 26px;
+        color: #3f4652;
+        font-size: clamp(18px, 2.3vw, 23px);
+        line-height: 1.58;
+        font-weight: 600;
+        word-break: keep-all;
+        overflow-wrap: break-word;
+      }
+
+      .hero-support {
+        max-width: 620px;
+        margin-top: 16px;
+        color: var(--muted);
+        font-size: 15px;
+        line-height: 1.75;
+        word-break: keep-all;
+        overflow-wrap: break-word;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 14px;
+        margin-top: 30px;
+      }
+
+      .friction {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 18px;
+        color: var(--muted);
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .friction span {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .friction.center {
+        justify-content: center;
+      }
+
+      .mini-check {
+        display: inline-grid;
+        place-items: center;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: #e8f5ee;
+        color: var(--green);
+        font-size: 12px;
+      }
+
+      .trust-line {
+        margin-top: 24px;
+        color: var(--soft);
+        font-size: 13px;
+        font-weight: 700;
+      }
+
+      .product-visual {
+        position: relative;
+        border: 1px solid rgba(203, 213, 225, 0.88);
+        border-radius: var(--radius);
+        background: #fff;
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        width: 100%;
+        min-width: 0;
+        transform: translateY(8px);
+      }
+
+      .product-visual::before {
+        content: "";
+        position: absolute;
+        inset: 0 0 auto;
+        height: 3px;
+        background: linear-gradient(90deg, var(--blue), var(--green), var(--yellow), var(--red));
+        z-index: 1;
+      }
+
+      .visual-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        min-height: 54px;
+        border-bottom: 1px solid var(--line);
+        background: rgba(251, 252, 255, 0.92);
+        padding: 0 16px;
+      }
+
+      .visual-top > * {
+        min-width: 0;
+      }
+
+      .window-dots {
+        display: flex;
+        gap: 7px;
+      }
+
+      .window-dots span {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+      }
+
+      .window-dots span:nth-child(1) {
+        background: var(--red);
+      }
+
+      .window-dots span:nth-child(2) {
+        background: var(--yellow);
+      }
+
+      .window-dots span:nth-child(3) {
+        background: var(--green);
+      }
+
+      .visual-title {
+        color: var(--muted);
+        font-family: "Google Sans Code", monospace;
+        font-size: 13px;
+        font-weight: 500;
+      }
+
+      .visual-body {
+        background: linear-gradient(180deg, #fbfdff 0%, #f7fbfb 100%);
+      }
+
+      .visual-main {
+        min-width: 0;
+        overflow: hidden;
+      }
+
+      .status-pill {
+        align-self: flex-start;
+        border: 1px solid #c8ead5;
+        border-radius: 999px;
+        background: #effaf3;
+        padding: 5px 9px;
+        color: #188038;
+        font-size: 12px;
+        font-weight: 800;
+        white-space: nowrap;
+      }
+
+      .dashboard-shot {
+        display: block;
+        width: 100%;
+        aspect-ratio: 1784 / 1348;
+        object-fit: cover;
+        object-position: top center;
+      }
+
+      .section-head {
+        max-width: 820px;
+        margin-bottom: 42px;
+      }
+
+      .section-kicker {
+        margin-bottom: 12px;
+        color: var(--blue-strong);
+        font-size: 13px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      h2 {
+        color: var(--ink);
+        font-size: clamp(32px, 4.4vw, 56px);
+        line-height: 1.08;
+        font-weight: 800;
+      }
+
+      .section-desc {
+        margin-top: 16px;
+        color: var(--muted);
+        font-size: 18px;
+        line-height: 1.72;
+        word-break: keep-all;
+      }
+
+      .card-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .info-card,
+      .faq-note,
+      .faq-list details,
+      .offer-panel,
+      .final-panel {
+        border: 1px solid rgba(223, 229, 238, 0.96);
+        border-radius: var(--radius);
+        background: #fff;
+      }
+
+      .info-card {
+        position: relative;
+        padding: 26px;
+        box-shadow: var(--shadow-soft);
+        overflow: hidden;
+      }
+
+      .info-card::after {
+        content: "";
+        position: absolute;
+        inset: 0 0 auto;
+        height: 3px;
+        background: linear-gradient(90deg, var(--blue), rgba(26, 115, 232, 0));
+        opacity: 0;
+        transition: opacity 160ms ease;
+      }
+
+      .info-card:hover::after {
+        opacity: 1;
+      }
+
+      .info-card:hover,
+      .check-item:hover,
+      .faq-list details:hover {
+        border-color: #d3e3fd;
+        box-shadow: var(--shadow-card);
+      }
+
+      .card-icon {
+        display: grid;
+        place-items: center;
+        width: 42px;
+        height: 42px;
+        margin-bottom: 18px;
+        border: 1px solid #d8e7ff;
+        border-radius: var(--radius);
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0)),
+          var(--blue-soft);
+        color: var(--blue-strong);
+      }
+
+      .card-icon svg {
+        width: 21px;
+        height: 21px;
+        stroke-width: 2;
+      }
+
+      h3 {
+        color: var(--ink);
+        font-size: 20px;
+        line-height: 1.35;
+        font-weight: 800;
+      }
+
+      .info-card p {
+        margin-top: 10px;
+        color: var(--muted);
+        font-size: 15px;
+        line-height: 1.72;
+        word-break: keep-all;
+      }
+
+      .solution-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
+        gap: 42px;
+        align-items: start;
+      }
+
+      .solution-flow {
+        position: relative;
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0;
+        border: 1px solid rgba(203, 213, 225, 0.92);
+        border-radius: var(--radius);
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(248, 250, 253, 0.96)),
+          #fff;
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+
+      .solution-flow::before {
+        content: "";
+        position: absolute;
+        inset: 0 0 auto;
+        height: 6px;
+        background: linear-gradient(90deg, var(--blue), var(--green), var(--yellow));
+      }
+
+      .solution-step {
+        position: relative;
+        min-height: 330px;
+        display: grid;
+        align-content: space-between;
+        gap: 28px;
+        padding: 34px 28px 28px;
+        border-right: 1px solid var(--line);
+      }
+
+      .solution-step:last-child {
+        border-right: 0;
+      }
+
+      .solution-step::after {
+        content: "";
+        position: absolute;
+        right: -13px;
+        top: 50%;
+        z-index: 1;
+        width: 26px;
+        height: 26px;
+        border-top: 1px solid var(--line);
+        border-right: 1px solid var(--line);
+        background: #fff;
+        transform: translateY(-50%) rotate(45deg);
+      }
+
+      .solution-step:last-child::after {
+        display: none;
+      }
+
+      .step-number {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        background: var(--ink);
+        color: #fff;
+        font-family: "Google Sans Code", monospace;
+        font-size: 14px;
+        font-weight: 800;
+      }
+
+      .solution-step h3 {
+        margin-top: 22px;
+      }
+
+      .solution-step p {
+        margin-top: 10px;
+        color: var(--muted);
+        font-size: 15px;
+        line-height: 1.72;
+        word-break: keep-all;
+      }
+
+      .step-chip {
+        display: inline-flex;
+        align-items: center;
+        width: fit-content;
+        min-height: 32px;
+        border: 1px solid #d8e7ff;
+        border-radius: 999px;
+        background: var(--blue-faint);
+        color: var(--blue-strong);
+        padding: 0 11px;
+        font-size: 12px;
+        font-weight: 900;
+      }
+
+      .model-section {
+        background:
+          linear-gradient(#e9eef6 1px, transparent 1px),
+          linear-gradient(90deg, #e9eef6 1px, transparent 1px),
+          #fbfdff;
+        background-size: 48px 48px;
+      }
+
+      .model-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 16px;
+      }
+
+      .model-card {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+        min-height: 134px;
+        border: 1px solid rgba(223, 229, 238, 0.96);
+        border-radius: var(--radius);
+        background: rgba(255, 255, 255, 0.92);
+        padding: 24px;
+        box-shadow: var(--shadow-soft);
+      }
+
+      .model-logo {
+        display: grid;
+        place-items: center;
+        flex: 0 0 auto;
+        width: 54px;
+        height: 54px;
+        border: 1px solid var(--line);
+        border-radius: 50%;
+        background: #fff;
+        color: var(--ink);
+      }
+
+      .model-logo svg {
+        width: 28px;
+        height: 28px;
+      }
+
+      .model-card h3 {
+        font-size: 19px;
+      }
+
+      .model-card p {
+        margin-top: 6px;
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.58;
+        word-break: keep-all;
+      }
+
+      .model-badge {
+        display: inline-flex;
+        margin-top: 10px;
+        border-radius: 999px;
+        background: var(--green-soft);
+        color: var(--green);
+        padding: 4px 9px;
+        font-size: 12px;
+        font-weight: 900;
+      }
+
+      .solution-step .card-icon {
+        margin: 0;
+      }
+
+      .usecase-wrap {
+        display: grid;
+        grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+        gap: 46px;
+        align-items: start;
+      }
+
+      .checklist {
+        display: grid;
+        gap: 14px;
+      }
+
+      .check-item {
+        display: grid;
+        grid-template-columns: 34px minmax(0, 1fr);
+        gap: 14px;
+        align-items: start;
+        border: 1px solid rgba(223, 229, 238, 0.96);
+        border-radius: var(--radius);
+        background: #fff;
+        padding: 19px 20px;
+        box-shadow: var(--shadow-soft);
+      }
+
+      .check-icon {
+        display: grid;
+        place-items: center;
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0)),
+          var(--green-soft);
+        color: var(--green);
+        font-weight: 900;
+      }
+
+      .check-item p {
+        color: #3f4652;
+        font-size: 15px;
+        line-height: 1.65;
+        font-weight: 600;
+      }
+
+      .usecase-emphasis {
+        margin-top: 24px;
+        border: 1px solid #d8e7ff;
+        border-radius: var(--radius);
+        background: #fff;
+        padding: 18px 20px;
+        color: var(--ink);
+        font-size: 19px;
+        line-height: 1.55;
+        font-weight: 800;
+        box-shadow: var(--shadow-soft);
+      }
+
+      .offer-section {
+        position: relative;
+        background:
+          linear-gradient(#e9eef6 1px, transparent 1px),
+          linear-gradient(90deg, #e9eef6 1px, transparent 1px),
+          radial-gradient(circle at 50% 0%, rgba(26, 115, 232, 0.12), transparent 34%),
+          #f7f9fd;
+        background-size: 48px 48px;
+      }
+
+      .offer-panel {
+        position: relative;
+        max-width: 920px;
+        margin: 0 auto;
+        padding: clamp(34px, 5vw, 66px);
+        box-shadow: var(--shadow);
+        text-align: center;
+        overflow: hidden;
+      }
+
+      .offer-panel::before {
+        content: "";
+        position: absolute;
+        inset: 0 0 auto;
+        height: 7px;
+        background: linear-gradient(90deg, var(--blue), var(--green), var(--yellow), var(--red));
+      }
+
+      .offer-panel::after {
+        content: "";
+        position: absolute;
+        inset: 7px 0 auto;
+        height: 170px;
+        background: linear-gradient(180deg, rgba(232, 240, 254, 0.78), rgba(255, 255, 255, 0));
+        pointer-events: none;
+      }
+
+      .offer-panel > * {
+        position: relative;
+        z-index: 1;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 34px;
+        margin-bottom: 20px;
+        border: 1px solid #d8e7ff;
+        border-radius: 999px;
+        background: #fff;
+        box-shadow: var(--shadow-soft);
+        color: var(--blue-strong);
+        padding: 0 14px;
+        font-size: 13px;
+        font-weight: 900;
+      }
+
+      .offer-title {
+        color: var(--ink);
+        font-size: clamp(34px, 5.6vw, 64px);
+        line-height: 1.04;
+        font-weight: 800;
+        letter-spacing: -0.01em;
+      }
+
+      .credit-highlight {
+        display: inline-block;
+        color: var(--blue-strong);
+        text-shadow: 0 12px 30px rgba(26, 115, 232, 0.2);
+      }
+
+      .offer-desc {
+        max-width: 690px;
+        margin: 18px auto 0;
+        color: var(--muted);
+        font-size: 17px;
+        line-height: 1.72;
+      }
+
+      .offer-actions {
+        margin-top: 28px;
+      }
+
+      .fine-print {
+        max-width: 720px;
+        margin: 18px auto 0;
+        color: var(--soft);
+        font-size: 12px;
+        line-height: 1.7;
+      }
+
+      .faq-layout {
+        display: grid;
+        grid-template-columns: 0.78fr 1.22fr;
+        gap: 30px;
+        align-items: start;
+      }
+
+      .faq-note {
+        border-color: #f3d2cf;
+        background:
+          linear-gradient(180deg, #fff8f7, #fffdfc);
+        padding: 26px;
+        box-shadow: var(--shadow-soft);
+      }
+
+      .faq-note h3 {
+        color: #b3261e;
+      }
+
+      .faq-note ul {
+        margin: 16px 0 0;
+        padding-left: 18px;
+        color: #5f3d3a;
+        font-size: 14px;
+        line-height: 1.72;
+      }
+
+      .faq-list {
+        display: grid;
+        gap: 11px;
+      }
+
+      .faq-list details {
+        padding: 0;
+        overflow: hidden;
+        box-shadow: var(--shadow-soft);
+      }
+
+      .faq-list summary {
+        cursor: pointer;
+        list-style: none;
+        padding: 19px 21px;
+        color: var(--ink);
+        font-weight: 800;
+      }
+
+      .faq-list summary::-webkit-details-marker {
+        display: none;
+      }
+
+      .faq-list details p {
+        border-top: 1px solid var(--line);
+        padding: 16px 20px 20px;
+        color: var(--muted);
+        font-size: 15px;
+        line-height: 1.72;
+      }
+
+      .final {
+        background:
+          linear-gradient(135deg, rgba(26, 115, 232, 0.2), transparent 42%),
+          #101317;
+        color: #fff;
+      }
+
+      .final-panel {
+        border-color: rgba(255, 255, 255, 0.12);
+        background:
+          linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02));
+        padding: clamp(34px, 6vw, 64px);
+        text-align: center;
+        box-shadow: 0 28px 90px rgba(0, 0, 0, 0.22);
+      }
+
+      .final h2 {
+        color: #fff;
+      }
+
+      .final .section-desc {
+        max-width: 760px;
+        margin-left: auto;
+        margin-right: auto;
+        color: #c7d1df;
+      }
+
+      .final .fine-print {
+        color: #9aa4b2;
+      }
+
+      .footer {
+        border-top: 1px solid var(--line);
+        padding: 26px 0;
+        color: var(--soft);
+        font-size: 13px;
+      }
+
+      .footer-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+      }
+
+      @media (max-width: 980px) {
+        .nav-links {
+          display: none;
+        }
+
+        .hero {
+          min-height: auto;
+          padding-top: 54px;
+        }
+
+        .hero-grid,
+        .solution-layout,
+        .solution-flow,
+        .model-grid,
+        .usecase-wrap,
+        .faq-layout {
+          grid-template-columns: 1fr;
+        }
+
+        .hero-grid {
+          gap: 42px;
+        }
+
+        h1 {
+          max-width: 820px;
+          font-size: clamp(42px, 8vw, 64px);
+          line-height: 1.04;
+        }
+
+        .solution-step {
+          min-height: auto;
+          border-right: 0;
+          border-bottom: 1px solid var(--line);
+        }
+
+        .solution-step::after {
+          display: none;
+        }
+
+        .solution-step:last-child {
+          border-bottom: 0;
+        }
+
+        .card-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .product-visual {
+          max-width: 860px;
+          transform: none;
+        }
+
+        .section {
+          padding: 86px 0;
+        }
+      }
+
+      @media (max-width: 1180px) and (min-width: 981px) {
+        .shell {
+          width: min(100% - 32px, 1040px);
+        }
+
+        .nav-links {
+          gap: 14px;
+          font-size: 13px;
+        }
+
+        .nav-actions .cta {
+          padding: 0 16px;
+          font-size: 14px;
+        }
+
+        .hero-grid {
+          grid-template-columns: 1fr;
+          gap: 42px;
+        }
+
+        h1 {
+          max-width: 900px;
+          font-size: clamp(44px, 6.5vw, 64px);
+        }
+
+        .hero-copy,
+        .hero-support {
+          max-width: 760px;
+        }
+
+        .product-visual {
+          max-width: 860px;
+          transform: none;
+        }
+      }
+
+      @media (max-width: 640px) {
+        html,
+        body,
+        .page {
+          width: 100%;
+          max-width: 100%;
+          overflow-x: hidden;
+        }
+
+        .shell {
+          width: auto;
+          max-width: none;
+          margin-left: 14px;
+          margin-right: 14px;
+        }
+
+        .nav {
+          min-height: 64px;
+        }
+
+        .nav-actions .cta {
+          display: none;
+        }
+
+        .hero-actions {
+          align-items: stretch;
+        }
+
+        .hero-actions .cta,
+        .offer-actions .cta,
+        .final .cta {
+          width: min(100%, calc(100vw - 24px));
+        }
+
+        .section {
+          padding: 76px 0;
+        }
+
+        h1 {
+          max-width: 100%;
+          font-size: clamp(30px, 8.4vw, 34px);
+          line-height: 1.12;
+          word-break: keep-all;
+          overflow-wrap: anywhere;
+        }
+
+        .hero-copy {
+          max-width: calc(100vw - 24px);
+          font-size: 16px;
+          line-height: 1.62;
+          margin-top: 22px;
+          word-break: keep-all;
+          overflow-wrap: anywhere;
+        }
+
+        .hero-support {
+          max-width: calc(100vw - 24px);
+          font-size: 14px;
+          line-height: 1.68;
+          word-break: keep-all;
+          overflow-wrap: anywhere;
+        }
+
+        .friction {
+          gap: 8px;
+          font-size: 12px;
+          word-break: keep-all;
+        }
+
+        .trust-line {
+          font-size: 12px;
+          word-break: keep-all;
+          overflow-wrap: anywhere;
+        }
+
+        .hero-actions .cta,
+        .offer-actions .cta,
+        .final .cta {
+          min-height: 52px;
+          white-space: normal;
+          text-align: center;
+          line-height: 1.35;
+          padding: 10px 16px;
+        }
+
+        .product-visual {
+          width: 100%;
+          min-width: 0;
+          box-shadow: 0 18px 54px rgba(30, 41, 59, 0.14);
+          max-width: 100%;
+        }
+
+        .visual-top {
+          gap: 8px;
+          padding: 0 12px;
+        }
+
+        .visual-title {
+          min-width: 0;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+
+        .visual-main {
+          min-width: 0;
+          padding: 0;
+          overflow: hidden;
+        }
+
+        .status-pill {
+          font-size: 11px;
+          padding: 4px 8px;
+        }
+
+        .visual-top .status-pill {
+          max-width: 58px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .info-card,
+        .faq-note,
+        .model-card {
+          padding: 22px;
+        }
+
+        .solution-step {
+          padding: 28px 22px;
+        }
+
+        .usecase-wrap {
+          gap: 32px;
+        }
+
+        .check-item {
+          padding: 17px;
+        }
+
+        .offer-panel {
+          padding: 34px 18px;
+        }
+
+        .faq-layout {
+          gap: 22px;
+        }
+
+        .footer-row {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header class="topbar">
+        <nav class="shell nav" aria-label="TokenDeal">
+          <a class="brand" href="#top" aria-label="TokenDeal 홈">
+            <img class="brand-logo" src="tokendeal-logo.png" alt="" />
+            <span>TokenDeal</span>
+          </a>
+          <div class="nav-links" aria-label="페이지 섹션">
+            <a href="#problem">문제</a>
+            <a href="#solution">해결</a>
+            <a href="#models">모델</a>
+            <a href="#usecase">작업 예시</a>
+            <a href="#offer">첫 충전</a>
+            <a href="#faq">FAQ</a>
+          </div>
+          <div class="nav-actions">
+            <a class="icon-button" href="#faq" aria-label="구매 전 필독">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor">
+                <path d="M12 9v4" stroke-linecap="round" />
+                <path d="M12 17h.01" stroke-linecap="round" />
+                <path
+                  d="M10.3 4.1 2.7 17.4A2 2 0 0 0 4.4 20h15.2a2 2 0 0 0 1.7-2.6L13.7 4.1a2 2 0 0 0-3.4 0Z"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </a>
+            <a class="cta" href="/login">1,000원으로 Codex 작업 바로 돌려보기</a>
+          </div>
+        </nav>
+      </header>
+
+      <main id="top">
+        <section class="hero" aria-labelledby="hero-title">
+          <div class="shell hero-grid">
+            <div>
+              <div class="eyebrow">
+                <span class="eyebrow-dot" aria-hidden="true"></span>
+                <span>AI coding credit for Codex users</span>
+              </div>
+              <h1 id="hero-title">
+                <span class="hero-title-line">토큰 부족할 때,</span>
+                <span class="hero-title-line">1,000원부터</span>
+                <span class="hero-title-line">바로 충전</span>
+              </h1>
+              <p class="hero-copy">
+                AI 코딩, 자동화, 장문 분석에 필요한 크레딧을 1,000원부터 충전하고
+                사용량만큼 차감합니다.
+              </p>
+              <p class="hero-support">
+                TokenDeal은 Codex와 에이전트 사용자를 위한 충전식 크레딧 서비스입니다.
+                지원 모델은 작업 목적에 따라 선택할 수 있습니다.
+              </p>
+              <div class="hero-actions">
+                <a class="cta" href="/login">1,000원으로 Codex 작업 바로 돌려보기</a>
+              </div>
+              <div class="friction" aria-label="마찰 제거 문구">
+                <span><span class="mini-check">✓</span>자동 결제 없음</span>
+                <span><span class="mini-check">✓</span>필요할 때만 충전</span>
+                <span><span class="mini-check">✓</span>회원가입 30초</span>
+              </div>
+              <p class="trust-line">
+                1,000원부터 충전 · 사용량 기반 차감 · 코딩/자동화 작업 중심
+              </p>
+            </div>
+
+            <aside class="product-visual" aria-label="TokenDeal 실제 사용 대시보드">
+              <div class="visual-top">
+                <div class="window-dots" aria-hidden="true">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+                <div class="visual-title">tokendeal://dashboard</div>
+                <div class="status-pill">실제 화면</div>
+              </div>
+              <div class="visual-body">
+                <div class="visual-main">
+                  <img class="dashboard-shot" src="tokendeal-dashboard-real.png" alt="TokenDeal 실제 사용 대시보드 화면" />
+                </div>
+              </div>
+            </aside>
+          </div>
+        </section>
+
+        <section id="problem" class="section band">
+          <div class="shell">
+            <div class="section-head">
+              <div class="section-kicker">Problem</div>
+              <h2>AI 구독료는 매달 나가는데, 정작 필요한 날엔 부족합니다</h2>
+              <p class="section-desc">
+                AI 코딩, 자동화, 문서 분석을 자주 하다 보면 구독은 늘고,
+                사용량 제한은 빨리 오고, 안 쓰는 날에도 비용은 그대로 빠져나갑니다.
+              </p>
+            </div>
+            <div class="card-grid">
+              <article class="info-card">
+                <div class="card-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M6 7h12M6 12h12M6 17h8" stroke-linecap="round" />
+                  </svg>
+                </div>
+                <h3>AI 구독이 하나씩 늘어납니다</h3>
+                <p>코딩, 분석, 자동화마다 다른 도구를 쓰다 보면 매달 고정비가 빠르게 쌓입니다.</p>
+              </article>
+              <article class="info-card">
+                <div class="card-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M12 3v6l4 2" stroke-linecap="round" stroke-linejoin="round" />
+                    <path d="M20 12a8 8 0 1 1-4.7-7.3" stroke-linecap="round" />
+                  </svg>
+                </div>
+                <h3>많이 쓰는 날일수록 제한이 먼저 옵니다</h3>
+                <p>긴 코드 분석, 디버깅, 자동화 작업은 사용량이 큽니다. 작업 중간에 막히면 흐름이 끊깁니다.</p>
+              </article>
+              <article class="info-card">
+                <div class="card-icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                    <path d="M4 7h16v10H4z" stroke-linejoin="round" />
+                    <path d="M8 11h4M8 15h8" stroke-linecap="round" />
+                  </svg>
+                </div>
+                <h3>안 쓰는 날에도 월구독은 결제됩니다</h3>
+                <p>매일 많이 쓰지 않는다면, 고정 구독보다 필요한 만큼 충전하는 방식이 더 합리적일 수 있습니다.</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section id="solution" class="section">
+          <div class="shell solution-layout">
+            <div class="section-head">
+              <div class="section-kicker">Solution</div>
+              <h2>구독을 더 늘리지 말고 크레딧을 충전하세요</h2>
+              <p class="section-desc">
+                TokenDeal은 Codex, 코딩 에이전트, 자동화 작업을 자주 쓰는 사용자를 위한
+                충전식 AI 코딩 크레딧 서비스입니다.
+              </p>
+            </div>
+            <div class="solution-flow" aria-label="TokenDeal 사용 흐름">
+              <article class="solution-step">
+                <div>
+                  <span class="step-number">01</span>
+                  <h3>필요한 만큼 충전</h3>
+                  <p>필요할 때 소액으로 충전하고, 실제 사용량에 따라 크레딧이 차감됩니다.</p>
+                </div>
+                <span class="step-chip">1,000원부터</span>
+              </article>
+              <article class="solution-step">
+                <div>
+                  <span class="step-number">02</span>
+                  <h3>큰 작업을 그대로 실행</h3>
+                  <p>코드 생성, 디버깅, 리팩토링, 장문 분석처럼 토큰 사용량이 큰 작업에 맞췄습니다.</p>
+                </div>
+                <span class="step-chip">Codex 중심</span>
+              </article>
+              <article class="solution-step">
+                <div>
+                  <span class="step-number">03</span>
+                  <h3>사용량만큼 차감</h3>
+                  <p>메인 흐름은 Codex 중심으로 두고, 문서 분석·번역·요약 등은 지원 모델 범위 안에서 유연하게 처리합니다.</p>
+                </div>
+                <span class="step-chip">자동 결제 없음</span>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section id="models" class="section model-section">
+          <div class="shell">
+            <div class="section-head">
+              <div class="section-kicker">Available Models</div>
+              <h2>작업 목적에 맞춰 모델을 선택하세요</h2>
+              <p class="section-desc">
+                Codex 작업을 중심으로 두고, 분석·요약·번역처럼 성격이 다른 작업은 지원 모델 범위 안에서 유연하게 처리합니다.
+              </p>
+            </div>
+            <div class="model-grid">
+              <article class="model-card">
+                <div class="model-logo" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M21.55 10.004a5.416 5.416 0 00-.478-4.501c-1.217-2.09-3.662-3.166-6.05-2.66A5.59 5.59 0 0010.831 1C8.39.995 6.224 2.546 5.473 4.838A5.553 5.553 0 001.76 7.496a5.487 5.487 0 00.691 6.5 5.416 5.416 0 00.477 4.502c1.217 2.09 3.662 3.165 6.05 2.66A5.586 5.586 0 0013.168 23c2.443.006 4.61-1.546 5.361-3.84a5.553 5.553 0 003.715-2.66 5.488 5.488 0 00-.693-6.497v.001zm-8.381 11.558a4.199 4.199 0 01-2.675-.954c.034-.018.093-.05.132-.074l4.44-2.53a.71.71 0 00.364-.623v-6.176l1.877 1.069c.02.01.033.029.036.05v5.115c-.003 2.274-1.87 4.118-4.174 4.123zM4.192 17.78a4.059 4.059 0 01-.498-2.763c.032.02.09.055.131.078l4.44 2.53c.225.13.504.13.73 0l5.42-3.088v2.138a.068.068 0 01-.027.057L9.9 19.288c-1.999 1.136-4.552.46-5.707-1.51h-.001zM3.023 8.216A4.15 4.15 0 015.198 6.41l-.002.151v5.06a.711.711 0 00.364.624l5.42 3.087-1.876 1.07a.067.067 0 01-.063.005l-4.489-2.559c-1.995-1.14-2.679-3.658-1.53-5.63h.001zm15.417 3.54l-5.42-3.088L14.896 7.6a.067.067 0 01.063-.006l4.489 2.557c1.998 1.14 2.683 3.662 1.529 5.633a4.163 4.163 0 01-2.174 1.807V12.38a.71.71 0 00-.363-.623zm1.867-2.773a6.04 6.04 0 00-.132-.078l-4.44-2.53a.731.731 0 00-.729 0l-5.42 3.088V7.325a.068.068 0 01.027-.057L14.1 4.713c2-1.137 4.555-.46 5.707 1.513.487.833.664 1.809.499 2.757h.001zm-11.741 3.81l-1.877-1.068a.065.065 0 01-.036-.051V6.559c.001-2.277 1.873-4.122 4.181-4.12.976 0 1.92.338 2.671.954-.034.018-.092.05-.131.073l-4.44 2.53a.71.71 0 00-.365.623l-.003 6.173v.002zm1.02-2.168L12 9.25l2.414 1.375v2.75L12 14.75l-2.415-1.375v-2.75z" />
+                  </svg>
+                </div>
+                <div>
+                  <h3>GPT / Codex</h3>
+                  <p>코드 작성, 리팩토링, 디버깅처럼 개발 흐름이 긴 작업에 사용합니다.</p>
+                  <span class="model-badge">메인 작업</span>
+                </div>
+              </article>
+              <article class="model-card">
+                <div class="model-logo" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M4.709 15.955l4.72-2.647.08-.23-.08-.128H9.2l-.79-.048-2.698-.073-2.339-.097-2.266-.122-.571-.121L0 11.784l.055-.352.48-.321.686.06 1.52.103 2.278.158 1.652.097 2.449.255h.389l.055-.157-.134-.098-.103-.097-2.358-1.596-2.552-1.688-1.336-.972-.724-.491-.364-.462-.158-1.008.656-.722.881.06.225.061.893.686 1.908 1.476 2.491 1.833.365.304.145-.103.019-.073-.164-.274-1.355-2.446-1.446-2.49-.644-1.032-.17-.619a2.97 2.97 0 01-.104-.729L6.283.134 6.696 0l.996.134.42.364.62 1.414 1.002 2.229 1.555 3.03.456.898.243.832.091.255h.158V9.01l.128-1.706.237-2.095.23-2.695.08-.76.376-.91.747-.492.584.28.48.685-.067.444-.286 1.851-.559 2.903-.364 1.942h.212l.243-.242.985-1.306 1.652-2.064.73-.82.85-.904.547-.431h1.033l.76 1.129-.34 1.166-1.064 1.347-.881 1.142-1.264 1.7-.79 1.36.073.11.188-.02 2.856-.606 1.543-.28 1.841-.315.833.388.091.395-.328.807-1.969.486-2.309.462-3.439.813-.042.03.049.061 1.549.146.662.036h1.622l3.02.225.79.522.474.638-.079.485-1.215.62-1.64-.389-3.829-.91-1.312-.329h-.182v.11l1.093 1.068 2.006 1.81 2.509 2.33.127.578-.322.455-.34-.049-2.205-1.657-.851-.747-1.926-1.62h-.128v.17l.444.649 2.345 3.521.122 1.08-.17.353-.608.213-.668-.122-1.374-1.925-1.415-2.167-1.143-1.943-.14.08-.674 7.254-.316.37-.729.28-.607-.461-.322-.747.322-1.476.389-1.924.315-1.53.286-1.9.17-.632-.012-.042-.14.018-1.434 1.967-2.18 2.945-1.726 1.845-.414.164-.717-.37.067-.662.401-.589 2.388-3.036 1.44-1.882.93-1.086-.006-.158h-.055L4.132 18.56l-1.13.146-.487-.456.061-.746.231-.243 1.908-1.312-.006.006z" fill="#D97757" />
+                  </svg>
+                </div>
+                <div>
+                  <h3>Claude</h3>
+                  <p>긴 문서 분석, 구조화, 요약처럼 문맥을 오래 유지해야 하는 작업에 적합합니다.</p>
+                  <span class="model-badge">문서 분석</span>
+                </div>
+              </article>
+              <article class="model-card">
+                <div class="model-logo" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M20.616 10.835a14.147 14.147 0 01-4.45-3.001 14.111 14.111 0 01-3.678-6.452.503.503 0 00-.975 0 14.134 14.134 0 01-3.679 6.452 14.155 14.155 0 01-4.45 3.001c-.65.28-1.318.505-2.002.678a.502.502 0 000 .975c.684.172 1.35.397 2.002.677a14.147 14.147 0 014.45 3.001 14.112 14.112 0 013.679 6.453.502.502 0 00.975 0c.172-.685.397-1.351.677-2.003a14.145 14.145 0 013.001-4.45 14.113 14.113 0 016.453-3.678.503.503 0 000-.975 13.245 13.245 0 01-2.003-.678z" fill="#3186FF" />
+                    <path d="M20.616 10.835a14.147 14.147 0 01-4.45-3.001 14.111 14.111 0 01-3.678-6.452.503.503 0 00-.975 0 14.134 14.134 0 01-3.679 6.452 14.155 14.155 0 01-4.45 3.001c-.65.28-1.318.505-2.002.678a.502.502 0 000 .975c.684.172 1.35.397 2.002.677a14.147 14.147 0 014.45 3.001 14.112 14.112 0 013.679 6.453.502.502 0 00.975 0c.172-.685.397-1.351.677-2.003a14.145 14.145 0 013.001-4.45 14.113 14.113 0 016.453-3.678.503.503 0 000-.975 13.245 13.245 0 01-2.003-.678z" fill="url(#gemini-green)" />
+                    <path d="M20.616 10.835a14.147 14.147 0 01-4.45-3.001 14.111 14.111 0 01-3.678-6.452.503.503 0 00-.975 0 14.134 14.134 0 01-3.679 6.452 14.155 14.155 0 01-4.45 3.001c-.65.28-1.318.505-2.002.678a.502.502 0 000 .975c.684.172 1.35.397 2.002.677a14.147 14.147 0 014.45 3.001 14.112 14.112 0 013.679 6.453.502.502 0 00.975 0c.172-.685.397-1.351.677-2.003a14.145 14.145 0 013.001-4.45 14.113 14.113 0 016.453-3.678.503.503 0 000-.975 13.245 13.245 0 01-2.003-.678z" fill="url(#gemini-red)" />
+                    <defs>
+                      <linearGradient id="gemini-green" x1="7" x2="11" y1="15.5" y2="12" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#08B962" />
+                        <stop offset="1" stop-color="#08B962" stop-opacity="0" />
+                      </linearGradient>
+                      <linearGradient id="gemini-red" x1="8" x2="11.5" y1="5.5" y2="11" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#F94543" />
+                        <stop offset="1" stop-color="#F94543" stop-opacity="0" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                </div>
+                <div>
+                  <h3>Gemini</h3>
+                  <p>검색형 리서치, 요약, 번역 등 보조 작업을 목적에 맞게 처리합니다.</p>
+                  <span class="model-badge">보조 작업</span>
+                </div>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section id="usecase" class="section band">
+          <div class="shell usecase-wrap">
+            <div>
+              <div class="section-kicker">Use Case</div>
+              <h2>이런 작업을 자주 한다면, 충전식이 맞습니다</h2>
+              <p class="usecase-emphasis">
+                아래 작업을 자주 한다면 충전식 크레딧이 더 효율적일 수 있습니다.
+              </p>
+            </div>
+            <div class="checklist">
+              <div class="check-item">
+                <div class="check-icon">✓</div>
+                <p>반복 업무를 AI로 자동화하며 스크립트, API 연동, 봇 작업을 자주 실행하는 사용자</p>
+              </div>
+              <div class="check-item">
+                <div class="check-icon">✓</div>
+                <p>UI 수정, 컴포넌트 생성, 버그 수정, 리팩토링에 Codex를 자주 쓰는 개발자·프론트엔드 작업자</p>
+              </div>
+              <div class="check-item">
+                <div class="check-icon">✓</div>
+                <p>개발자는 아니지만 Codex로 MVP, 랜딩페이지, 자동화 도구를 빠르게 만들고 싶은 사용자</p>
+              </div>
+              <div class="check-item">
+                <div class="check-icon">✓</div>
+                <p>코드베이스, 에러 로그, 기획서, 리서치 문서를 AI에게 길게 분석시키는 사용자</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="offer" class="section offer-section" aria-labelledby="offer-title">
+          <div class="shell">
+            <div class="offer-panel">
+              <div class="badge">첫 충전 한정 혜택</div>
+              <h2 id="offer-title" class="offer-title">
+                1,000원 충전하면 <span class="credit-highlight">$30 크레딧</span>을 드립니다
+              </h2>
+              <p class="offer-desc">
+                처음부터 큰 금액을 결제할 필요 없습니다. 단돈 1,000원으로 충전하고,
+                Codex·AI 코딩 작업에서 실제 차감 방식을 직접 확인해보세요.
+              </p>
+              <div class="offer-actions">
+                <a class="cta" href="/login">1,000원으로 Codex 작업 바로 돌려보기</a>
+              </div>
+              <div class="friction center">
+                <span><span class="mini-check">✓</span>자동 결제 없음</span>
+                <span><span class="mini-check">✓</span>회원가입 30초</span>
+                <span><span class="mini-check">✓</span>필요할 때만 충전</span>
+              </div>
+              <p class="fine-print">
+                크레딧 사용량은 모델, 입력/출력 길이, 캐시 사용 여부, 작업 방식에 따라 달라질 수 있습니다.
+                첫 충전 혜택은 신규 사용자 1회에 한해 제공됩니다.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section id="faq" class="section">
+          <div class="shell">
+            <div class="section-head">
+              <div class="section-kicker">FAQ</div>
+              <h2>구매 전 확인해야 할 내용</h2>
+            </div>
+            <div class="faq-layout">
+              <aside class="faq-note">
+                <h3>구매 전 꼭 확인해주세요</h3>
+                <ul>
+                  <li>TokenDeal은 OpenAI 공식 ChatGPT Plus/Pro 구독권 판매 서비스가 아닙니다.</li>
+                  <li>충전 금액은 TokenDeal 플랫폼 크레딧으로 적립되며, 실제 사용량에 따라 차감됩니다.</li>
+                  <li>AI 회사들은 구독별 제공 토큰량을 공개하지 않으므로 정확한 절감률은 보장할 수 없습니다.</li>
+                  <li>구매 후 크레딧을 사용하지 않은 경우에는 환불 가능하지만, 조금이라도 사용한 경우 환불이 불가능합니다.</li>
+                  <li>기존 ChatGPT/Codex 구독 계정의 연동 상품이 아니며, API 로그인 방식의 별도 계정으로 관리됩니다.</li>
+                  <li>지원 모델, 사용 가능 범위, 차감 기준은 서비스 정책과 모델 제공 상태에 따라 변경될 수 있습니다.</li>
+                </ul>
+              </aside>
+              <div class="faq-list">
+                <details open>
+                  <summary>Q. TokenDeal은 무엇인가요?</summary>
+                  <p>TokenDeal은 Codex와 AI 코딩 작업에 사용할 수 있는 플랫폼 크레딧 충전 서비스입니다. 충전한 금액은 TokenDeal 크레딧으로 적립되며, 사용량에 따라 차감됩니다.</p>
+                </details>
+                <details>
+                  <summary>Q. OpenAI 공식 ChatGPT Plus/Pro 구독권인가요?</summary>
+                  <p>아닙니다. TokenDeal은 OpenAI의 공식 ChatGPT Plus/Pro 구독권 판매 서비스가 아니며, 팀 초대 방식도 아닙니다. TokenDeal 플랫폼에서 제공하는 크레딧 기반 사용 서비스입니다.</p>
+                </details>
+                <details>
+                  <summary>Q. 기존 코덱스와 100% 동일한가요?</summary>
+                  <p>네. Codex 사용 흐름을 기준으로 동일하게 작업할 수 있도록 구성했습니다. 다만 기존 ChatGPT/Codex 구독 계정과 연동되는 상품은 아니며, TokenDeal에서 제공하는 API 로그인 방식과 크레딧 기준으로 별도 관리됩니다.</p>
+                </details>
+                <details>
+                  <summary>Q. 기존 ChatGPT/Codex 계정과 연동되나요?</summary>
+                  <p>기존 ChatGPT 구독 계정의 연동 상품이 아닙니다. API 로그인 방식으로서 새로운 계정이라고 생각하시면 됩니다.</p>
+                </details>
+                <details>
+                  <summary>Q. 환불은 어떻게 되나요?</summary>
+                  <p>구매 후 크레딧을 사용하지 않았을 경우에는 환불 가능합니다. 하지만 조금이라도 크레딧을 사용하신 경우 환불이 불가능합니다. 이점 꼭 유의해 주세요.</p>
+                </details>
+                <details>
+                  <summary>Q. 기존 모델에 비해 저렴한가요?</summary>
+                  <p>AI 회사들은 구독별 제공 토큰량을 공개하지 않습니다. 따라서 정확한 수치는 말씀드릴 수 없으나, 코덱스의 경우 사용 패턴에 따라 체감상 약 30% 저렴할 수 있다고 추측됩니다. 모든 사용자에게 동일한 절감률을 보장하는 표현은 아닙니다.</p>
+                </details>
+                <details>
+                  <summary>Q. 정액제 방식의 시간 제한과 다른가요?</summary>
+                  <p>정액제의 시간 단위 제한이 아니라, 충전한 크레딧 범위 안에서 사용량 기준으로 차감되는 방식입니다. 단, 서비스 안정성·정책·모델 제공 상태에 따른 제한은 있을 수 있습니다.</p>
+                </details>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="section final" aria-labelledby="final-title">
+          <div class="shell">
+            <div class="final-panel">
+              <h2 id="final-title">비싼 AI 디지털 월세, 이제 필요한 만큼만 쓰세요</h2>
+              <p class="section-desc">
+                1,000원만 충전해도 $30 크레딧으로 Codex·AI 코딩 작업의 실제 사용량 차감을 직접 확인할 수 있습니다.
+              </p>
+              <div class="offer-actions">
+                <a class="cta" href="/login">1,000원으로 Codex 작업 바로 돌려보기</a>
+              </div>
+              <div class="friction center">
+                <span><span class="mini-check">✓</span>자동 결제 없음</span>
+                <span><span class="mini-check">✓</span>회원가입 30초</span>
+              </div>
+              <p class="fine-print">
+                TokenDeal은 공식 ChatGPT Plus/Pro 구독권이 아닌 플랫폼 크레딧 기반 서비스입니다.
+              </p>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="footer">
+        <div class="shell footer-row">
+          <div>TokenDeal landing</div>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
